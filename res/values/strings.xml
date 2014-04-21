@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">ClassMate</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="version">Alpha 0.1</string>
     
     <string name="menu_settings">Settings</string>
 

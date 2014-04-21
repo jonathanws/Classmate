@@ -3,6 +3,7 @@ package edu.towson.cosc.classmate;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,26 +43,35 @@ public class AwesomeAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = LayoutInflater.from(mContext).inflate(R.layout.message_row, parent, false);
+			
+			if (message.isMine())
+				convertView = LayoutInflater.from(mContext).inflate(R.layout.message_row_gravity_right, parent, false);
+			
+			else
+				convertView = LayoutInflater.from(mContext).inflate(R.layout.message_row_gravity_left, parent, false);
+			
 			holder.message = (TextView) convertView.findViewById(R.id.message_text);
 			convertView.setTag(holder);
 		} else
 			holder = (ViewHolder) convertView.getTag();
 
-		holder.message.setText(message.getMessage());
+		holder.message.setText(message.getMessage() + "\n" + message.getTimestamp() + " - " + message.getIP());
 
 		LayoutParams lp = (LayoutParams) holder.message.getLayoutParams();
 		
 		if (message.isMine()) {
-			holder.message.setBackgroundResource(android.R.color.holo_orange_light);
+			holder.message.setBackgroundResource(android.R.color.holo_orange_dark);
 			lp.gravity = Gravity.RIGHT;
+			lp.leftMargin = 100;
 		} else {
-			holder.message.setBackgroundResource(android.R.color.holo_blue_bright);
+			holder.message.setBackgroundResource(android.R.color.holo_blue_dark);
 			lp.gravity = Gravity.LEFT;
+			lp.rightMargin = 100;
 		}
 		
+		Typeface tf_light = Typeface.createFromAsset(mContext.getAssets(), "fonts/roboto_light.ttf");
+		holder.message.setTypeface(tf_light);
 		holder.message.setLayoutParams(lp);
-//		holder.message.setTextColor(Color.WHITE))); //TODO there's no real reason why this shouldn't work...
 		
 		return convertView;
 	}

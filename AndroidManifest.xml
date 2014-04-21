@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo.Light" >
         
         <activity
             android:name="edu.towson.cosc.classmate.HomeActivity"
@@ -26,6 +26,10 @@
             </intent-filter>
             
         </activity>
+        
+        <activity
+            android:name="edu.towson.cosc.classmate.Settings"
+            android:label="Settings" />
         
     </application>
 

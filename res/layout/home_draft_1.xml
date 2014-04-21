@@ -7,25 +7,26 @@
     <LinearLayout
         android:id="@+id/bottom_write_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_alignParentBottom="true" >
 
         <EditText
             android:id="@+id/text"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Write here"
-            android:padding="4dp"
             android:textColor="@android:color/black" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/ic_send" />
     </LinearLayout>
-
+    
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

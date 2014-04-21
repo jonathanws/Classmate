@@ -1,14 +1,20 @@
 package edu.towson.cosc.classmate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 // Class defines activity where communication will take place
 public class HomeActivity extends ListActivity {
@@ -32,12 +38,15 @@ public class HomeActivity extends ListActivity {
 		this.setTitle(sender);
 		messages = new ArrayList<Message>();
 		
-		messages.add(new Message(true, "Fuck man, she's still talking"));
-		messages.add(new Message(true, "She does this literally every class"));
-		messages.add(new Message(false, "you'd think she'd catch on by now"));
-		messages.add(new Message(true, "fat chance, she can't tell that we don't pay attention"));
-		messages.add(new Message(false, "truth.  Susq after this?"));
-		messages.add(new Message(true, "If it ever finishes, sure"));
+		// Get current system time
+		Calendar c = Calendar.getInstance(); 
+		
+		messages.add(new Message(true, "Fuck man, she's still talking", "192.168.0.42", getCurrentSystemTime()));
+		messages.add(new Message(true, "She does this literally every class", "192.168.0.42", getCurrentSystemTime()));
+		messages.add(new Message(false, "you'd think she'd catch on by now", "192.168.0.43", getCurrentSystemTime()));
+		messages.add(new Message(true, "fat chance, she can't tell that we don't pay attention", "192.168.0.42", getCurrentSystemTime()));
+		messages.add(new Message(false, "truth.  Susq after this?", "192.168.0.43", getCurrentSystemTime()));
+		messages.add(new Message(true, "If it ever finishes, sure", "192.168.0.42", getCurrentSystemTime()));
 		
 		adapter = new AwesomeAdapter(this, messages);
 		setListAdapter(adapter);
@@ -51,7 +60,27 @@ public class HomeActivity extends ListActivity {
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
 	}
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+			case R.id.menu_settings:
+				// This would be moved to before the super() call in the Settings() class, but
+				// apparently you cannot make a SharedPreferences call before the super() call.
+				SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+				if (sp.getBoolean(Settings.KEY_THEME, true))
+					Settings.current_theme = Settings.DARK_THEME;
+				else
+					Settings.current_theme = Settings.LIGHT_THEME;
+
+				Intent settingsIntent = new Intent(this, Settings.class);
+				this.startActivity(settingsIntent);
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	// Call to initiate a thread (AsyncTask)
 	public void sendMessage(View v) {
 		String newMessage = text.getText().toString().trim(); 
@@ -60,6 +89,25 @@ public class HomeActivity extends ListActivity {
 			addNewMessage(new Message(true, newMessage));
 			new SendMessage().execute();
 		}
+	}
+	
+	// Get current system time
+	public String getCurrentSystemTime() {
+		
+		Calendar c = Calendar.getInstance();
+		String time = "";
+		String AM_PM = "";
+		
+		if (c.get(Calendar.AM_PM) == 1)
+			AM_PM = "PM";
+		else
+			AM_PM = "AM";
+		
+		time = c.get(Calendar.HOUR) + ":" 
+				+ c.get(Calendar.MINUTE) + " " 
+				+ AM_PM;
+		
+		return time;
 	}
 	
 	// New thread to send a message

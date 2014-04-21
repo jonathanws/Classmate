@@ -13,7 +13,7 @@ public class Message {
 	// Might not include this
 	// Something about how to store IPs in java
 	// http://stackoverflow.com/questions/8677707/datatype-for-storing-ip-addresses-in-java
-	private int mIP;
+	private String mIP;
 	
 	
 	// Constructor methods
@@ -34,7 +34,7 @@ public class Message {
 	 * @param message Actual string of message
 	 * @param ip IP of whomever
 	 */
-	public Message(boolean isMine, String message, int ip) {
+	public Message(boolean isMine, String message, String ip) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mIP = ip;
@@ -48,7 +48,7 @@ public class Message {
 	 * @param ip IP of whomever
 	 * @param timestamp Date and time message was initialized.
 	 */
-	public Message(boolean isMine, String message, String timestamp, int ip) {
+	public Message(boolean isMine, String message, String ip, String timestamp) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mIP = ip;
@@ -88,12 +88,12 @@ public class Message {
 	}
 	
 	/** @return int for IP address */
-	public int getIP() {
+	public String getIP() {
 		return this.mIP;
 	}
 	
 	/** @param ip int for IP address */
-	public void setIP(int ip) {
+	public void setIP(String ip) {
 		this.mIP = ip;
 	}
 

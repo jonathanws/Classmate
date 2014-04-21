@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Look and Feel" >
+        
+        <CheckBoxPreference
+            android:key="preference_typeface"
+            android:title="Typeface" />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Other" >
+        
+        <edu.towson.cosc.classmate.SuperSecretDeveloperPreference
+            android:title="Version"
+            android:summary="@string/version" />
+            
+    </PreferenceCategory>
+    
+</PreferenceScreen>

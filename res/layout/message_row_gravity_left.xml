@@ -8,13 +8,12 @@
         android:id="@+id/message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:gravity="left"
         android:background="@android:color/holo_blue_bright"
-        android:shadowColor="@android:color/holo_blue_dark"
-        android:shadowDx="1"
-        android:shadowDy="1"
         android:text="Medium Text"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
  
 </LinearLayout>
