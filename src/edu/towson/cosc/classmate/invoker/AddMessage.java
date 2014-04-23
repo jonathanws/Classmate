@@ -22,4 +22,12 @@ public class AddMessage implements Command {
 		return null;
 	}
 	
+	public synchronized Object redo() {
+		return null;
+	}
+	
+	public synchronized Object undo() {
+		return null;
+	}
+	
 }

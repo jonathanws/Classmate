@@ -8,6 +8,7 @@ public class DeleteMessage implements Command {
 	
 	private MessageList list;
 	private final int index;
+	private Message msg;
 	
 	DeleteMessage( Aggregator aggr, int index ) {
 		this.list = aggr.getMessages();
@@ -15,12 +16,20 @@ public class DeleteMessage implements Command {
 	}
 	
 	public synchronized Object execute() {
-		Message msg = list.getMessage( this.index );
+		this.msg = list.getMessage( this.index );
 		
-		if ( msg != null ) {
+		if ( this.msg != null ) {
 			this.list.deleteMessage( this.index );
 		}
 		
-		return msg;
+		return this.msg;
+	}
+	
+	public synchronized Object redo() {
+		return null;
+	}
+	
+	public synchronized Object undo() {
+		return null;
 	}
 }
