@@ -1,16 +1,21 @@
 package edu.towson.cosc.classmate;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,8 +53,8 @@ public class HomeActivity extends ListActivity {
 		
 		init();
 		
-		sender = "Joe Shmoe";
-		this.setTitle(sender);
+		// Set title of screen to name of network
+		this.setTitle(getNetworkName());
 		messages = new ArrayList<Message>();
 		
 		messages.add(new Message(true, "Fuck man, she's still talking", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
@@ -69,6 +74,16 @@ public class HomeActivity extends ListActivity {
 	protected void init() {
 		et_message = (EditText) this.findViewById(R.id.message_text);
 		bu_priority = (Button) this.findViewById(R.id.bu_priority);
+	}
+	
+	protected String getNetworkName() {
+		String ssid = "";
+		WifiManager wifiMgr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+		if (wifiMgr.isWifiEnabled()) {
+			WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+			ssid = wifiInfo.getSSID();
+		}
+		return ssid;
 	}
 
 	@Override
@@ -113,23 +128,8 @@ public class HomeActivity extends ListActivity {
 		}
 	}
 	
-	// Get current system time
 	public String getCurrentSystemTime() {
-		
-		Calendar c = Calendar.getInstance();
-		String time = "";
-		String AM_PM = "";
-		
-		if (c.get(Calendar.AM_PM) == 1)
-			AM_PM = "PM";
-		else
-			AM_PM = "AM";
-		
-		time = c.get(Calendar.HOUR) + ":" 
-				+ c.get(Calendar.MINUTE) + " " 
-				+ AM_PM;
-		
-		return time;
+		return DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
 	}
 	
 	void addNewMessage(Message m) {
