@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,38 +26,49 @@ public class HomeActivity extends ListActivity {
 	
 	ArrayList<Message> messages;
 	AwesomeAdapter adapter;
-	EditText text;
+	EditText et_message;
+	Button bu_priority;
 	static Random rand = new Random();
 	static String sender;
+	
+	private static final int PRIORITY_FLAG = 7; // Why not
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_draft_1); //TODO change me
 		
+		// Set FIRST_RUN variable to false now
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		Editor ed = sp.edit();
+		ed.putBoolean(Settings.KEY_FIRST_RUN, false);
+		ed.commit();
+		
 		// Populate listview with an arraylist, which is in turn populated with messages
 		
-		text = (EditText) this.findViewById(R.id.message_text);
+		init();
 		
 		sender = "Joe Shmoe";
 		this.setTitle(sender);
 		messages = new ArrayList<Message>();
 		
-		// Get current system time
-		Calendar c = Calendar.getInstance(); 
-		
-		messages.add(new Message(true, "Fuck man, she's still talking", "192.168.0.42", getCurrentSystemTime()));
-		messages.add(new Message(true, "She does this literally every class", "192.168.0.42", getCurrentSystemTime()));
-		messages.add(new Message(false, "you'd think she'd catch on by now", "192.168.0.43", getCurrentSystemTime()));
-		messages.add(new Message(true, "fat chance, she can't tell that we don't pay attention", "192.168.0.42", getCurrentSystemTime()));
-		messages.add(new Message(false, "truth.  Susq after this?", "192.168.0.43", getCurrentSystemTime()));
-		messages.add(new Message(true, "If it ever finishes, sure", "192.168.0.42", getCurrentSystemTime()));
+		messages.add(new Message(true, "Fuck man, she's still talking", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
+		messages.add(new Message(true, "She does this literally every class", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
+		messages.add(new Message(false, "you'd think she'd catch on by now", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
+		messages.add(new Message(true, "fat chance, she can't tell that we don't pay attention", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
+		messages.add(new Message(false, "truth.  Susq after this?", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
+		messages.add(new Message(true, "If it ever finishes, sure", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
 		
 		adapter = new AwesomeAdapter(this, messages);
 		setListAdapter(adapter);
 		
 		// Demonstrate hot-swapping of messages in list
 		addNewMessage(new Message(false, "foo"));
+	}
+	
+	protected void init() {
+		et_message = (EditText) this.findViewById(R.id.message_text);
+		bu_priority = (Button) this.findViewById(R.id.bu_priority);
 	}
 
 	@Override
@@ -80,12 +96,18 @@ public class HomeActivity extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	// Called when user wants to set the priority of their message
+	public void setPriority(View v) {
+		showDialog(PRIORITY_FLAG);
+		Toast.makeText(getApplicationContext(), "got it", Toast.LENGTH_SHORT).show();
+	}
 
 	// Call to initiate a thread (AsyncTask)
 	public void sendMessage(View v) {
-		String newMessage = text.getText().toString().trim(); 
+		String newMessage = et_message.getText().toString().trim(); 
 		if(newMessage.length() > 0) {
-			text.setText("");
+			et_message.setText("");
 			addNewMessage(new Message(true, newMessage));
 			new SendMessage().execute();
 		}
@@ -109,6 +131,41 @@ public class HomeActivity extends ListActivity {
 		
 		return time;
 	}
+	
+	void addNewMessage(Message m) {
+		messages.add(m);
+		adapter.notifyDataSetChanged();
+		getListView().setSelection(messages.size()-1);
+	}
+	
+	@Deprecated
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		
+		switch(id) {
+			case PRIORITY_FLAG:
+				return new AlertDialog.Builder(this) // Make a dialog
+				.setTitle("Set message priority")
+				.setItems(R.array.priority_array, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {						
+						if (which == 0) {
+							bu_priority.setBackgroundResource(R.drawable.ic_priority_withbox_1);
+						}
+						else if(which == 1) {
+							bu_priority.setBackgroundResource(R.drawable.ic_priority_withbox_2);
+						}
+						else if(which == 2) {
+							bu_priority.setBackgroundResource(R.drawable.ic_priority_withbox_3);
+						}
+					}
+				})
+				.create();
+		}
+		return super.onCreateDialog(id);
+	}
+	
+	
 	
 	// New thread to send a message
 	private class SendMessage extends AsyncTask<Void, String, String> {
@@ -156,12 +213,6 @@ public class HomeActivity extends ListActivity {
 			
 		}
 
-	}
-	
-	void addNewMessage(Message m) {
-		messages.add(m);
-		adapter.notifyDataSetChanged();
-		getListView().setSelection(messages.size()-1);
 	}
 
 }

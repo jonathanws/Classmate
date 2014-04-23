@@ -11,6 +11,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_alignParentBottom="true" >
+        
+        <Button
+            android:id="@+id/bu_priority"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/ic_priority_withbox_1"
+            android:onClick="setPriority" />
 
         <EditText
             android:id="@+id/text"
