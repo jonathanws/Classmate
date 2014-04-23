@@ -14,6 +14,11 @@ public class Message {
 	// Something about how to store IPs in java
 	// http://stackoverflow.com/questions/8677707/datatype-for-storing-ip-addresses-in-java
 	private String mIP;
+	private int mPriority;
+	
+	public static final int HIGH_PRIORITY = 3;
+	public static final int MEDIUM_PRIORITY = 2;
+	public static final int LOW_PRIORITY = 1; 
 	
 	
 	// Constructor methods
@@ -26,6 +31,7 @@ public class Message {
 	public Message(boolean isMine, String message) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
+		this.mPriority = LOW_PRIORITY;
 	}
 	
 	/**
@@ -33,15 +39,16 @@ public class Message {
 	 * @param isMine Ownership of message.  Either user(true) or some shmoe(false)
 	 * @param message Actual string of message
 	 * @param ip IP of whomever
+	 * @param priority priority of message
 	 */
-	public Message(boolean isMine, String message, String ip) {
+	public Message(boolean isMine, String message, String ip, int priority) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mIP = ip;
+		this.mPriority = priority;
 	}
 	
 	/**
-	 * Constructor for a new message
 	 * Constructor for a new message
 	 * @param isMine Ownership of message.  Either user(true) or some shmoe(false)
 	 * @param message Actual string of message
@@ -95,6 +102,16 @@ public class Message {
 	/** @param ip int for IP address */
 	public void setIP(String ip) {
 		this.mIP = ip;
+	}
+	
+	/** @return int for priority */
+	public int getPriority() {
+		return this.mPriority;
+	}
+	
+	/** @param priority must be one of three constant values */
+	public void setPriority(int priority) {
+		this.mPriority = priority;
 	}
 
 }

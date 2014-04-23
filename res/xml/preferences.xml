@@ -7,6 +7,18 @@
             android:key="preference_typeface"
             android:title="Typeface" />
         
+        <CheckBoxPreference
+            android:key="preference_splash"
+            android:title="Splash Screen" />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="User">
+        
+        <EditTextPreference
+            android:key="preference_name"
+            android:title="Display Name" />
+        
     </PreferenceCategory>
     
     <PreferenceCategory android:title="Other" >

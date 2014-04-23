@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.Preference;
+import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +18,12 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 
 	public static final String PREF = "preference_";
 	
-	public static final String KEY_TYPEFACE = PREF + "typeface";
-	public static final String KEY_THEME =  PREF + "theme";
-
+	public static final String KEY_FIRST_RUN = PREF + "first_run";
+	public static final String KEY_NAME =      PREF + "name";
+	public static final String KEY_SPLASH =    PREF + "splash";
+	public static final String KEY_THEME =     PREF + "theme";
+	public static final String KEY_TYPEFACE =  PREF + "typeface";
+	
 	public static final int DARK_THEME = android.R.style.Theme_Holo;
 	public static final int LIGHT_THEME = android.R.style.Theme_Holo_Light;
 	public static int current_theme = DARK_THEME;
@@ -95,13 +98,19 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
 
 		// Instantiation
+		CheckBoxPreference cbp_splash = (CheckBoxPreference) findPreference(KEY_SPLASH);
 		CheckBoxPreference cbp_typeface = (CheckBoxPreference) findPreference(KEY_TYPEFACE);
+		EditTextPreference etp_name = (EditTextPreference) findPreference(KEY_NAME);
 
 		// Read values
+		boolean boolean_splash = sp.getBoolean(KEY_SPLASH, true);
 		boolean boolean_typeface = sp.getBoolean(KEY_TYPEFACE, true);
+		String string_name = sp.getString(KEY_NAME, "Slartibartfast"); // Default if none found
 
 		// Set Summaries
+		cbp_splash.setChecked(boolean_splash);
 		cbp_typeface.setChecked(boolean_typeface);
+		etp_name.setSummary(string_name);
 	}
 
 //	private String capitalizeFirstLetter(String paramString) {
