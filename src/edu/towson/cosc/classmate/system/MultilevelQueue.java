@@ -23,8 +23,19 @@ public class MultilevelQueue {
 		return this.count;
 	}
 	
-	// TODO: Complete implementation
 	synchronized SystemCall nextCommand() {
+		if( this.count > 0 ) {
+			if( this.user.size() > 0 ) {
+				return this.user.poll();
+			} else if( this.outgoing.size() > 0 ) {
+				return this.outgoing.poll();
+			} else if( this.incoming.size() > 0 ) {
+				return this.incoming.poll();
+			} else {
+				return this.FCFS.poll();
+			}
+		}
+		
 		return null;
 	}
 	
@@ -38,6 +49,8 @@ public class MultilevelQueue {
 		} else {
 			this.FCFS.add( call );
 		}
+		
+		this.count++;
 	}
 	
 }
