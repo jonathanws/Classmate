@@ -1,4 +1,4 @@
-package edu.towson.cosc.classmate.system;
+package edu.towson.cosc.classmate.scheduler;
 
 public class SendMessage extends NetworkCall {
 	

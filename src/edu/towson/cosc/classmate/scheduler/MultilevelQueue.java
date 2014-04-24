@@ -1,4 +1,4 @@
-package edu.towson.cosc.classmate.system;
+package edu.towson.cosc.classmate.scheduler;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -7,13 +7,13 @@ import java.util.Queue;
 public class MultilevelQueue {
 	
 	private int count;
-	private Queue<LocalCall> user;
+	private Queue<UserCall> user;
 	private Queue<SendMessage> outgoing;
 	private PriorityQueue<ReceiveMessage> incoming;
 	private Queue<SystemCall> FCFS;
 	
 	MultilevelQueue() {
-		this.user = new LinkedList<LocalCall>();
+		this.user = new LinkedList<UserCall>();
 		this.outgoing = new LinkedList<SendMessage>();
 		this.incoming = new PriorityQueue<ReceiveMessage>();
 		this.FCFS = new LinkedList<SystemCall>();
@@ -23,8 +23,11 @@ public class MultilevelQueue {
 		return this.count;
 	}
 	
+	// Executing Next Command Methods
 	synchronized SystemCall nextCommand() {
 		if( this.count > 0 ) {
+			this.count--;
+			
 			if( this.user.size() > 0 ) {
 				return this.user.poll();
 			} else if( this.outgoing.size() > 0 ) {
@@ -39,18 +42,30 @@ public class MultilevelQueue {
 		return null;
 	}
 	
-	synchronized void schedule( SystemCall call ) {
-		if( call instanceof LocalCall ) {
-			this.user.add( (LocalCall) call );
-		} else if( call instanceof SendMessage ) {
-			this.outgoing.add( (SendMessage) call );
-		} else if( call instanceof ReceiveMessage ) {
-			this.incoming.add( (ReceiveMessage) call );
-		} else {
-			this.FCFS.add( call );
+	// Scheduling Methods
+	private boolean toQueue( Queue q, SystemCall call ) {
+		if( q.add( call ) ) {
+			this.count++;
+			return true;
 		}
 		
-		this.count++;
+		return false;
+	}
+	
+	synchronized boolean schedule( SystemCall call ) {
+		return toQueue( this.FCFS, call );
+	}
+	
+	synchronized boolean schedule( UserCall call ) {
+		return toQueue( this.user, call );
+	}
+	
+	synchronized boolean schedule( NetworkCall call ) {
+		if( call instanceof SendMessage ) {
+			return toQueue( this.outgoing, call );
+		}
+		
+		return toQueue( this.incoming, call );
 	}
 	
 }

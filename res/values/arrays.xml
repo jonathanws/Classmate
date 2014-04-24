@@ -2,9 +2,9 @@
 <resources>
     
     <string-array name="priority_array">
-        <item>1 - Minimum Priority</item>
-        <item>2 - Medium Priority</item>
-        <item>3 - Maximum Priority</item>
+        <item>1: Normal</item>
+        <item>2: Important</item>
+        <item>3: Emergency</item>
     </string-array>
     
 </resources>
