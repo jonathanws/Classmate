@@ -2,9 +2,7 @@ package edu.towson.cosc.classmate;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 // Class defines activity where communication will take place
 public class HomeActivity extends ListActivity {
@@ -33,7 +30,6 @@ public class HomeActivity extends ListActivity {
 	AwesomeAdapter adapter;
 	EditText et_message;
 	Button bu_priority;
-	static Random rand = new Random();
 	static String sender;
 	
 	private static final int PRIORITY_FLAG = 7; // Why not
@@ -44,19 +40,53 @@ public class HomeActivity extends ListActivity {
 		setContentView(R.layout.home_draft_1); //TODO change me
 		
 		// Set FIRST_RUN variable to false now
+		setFirstRunToFalse();
+		init();
+		setUpTitle();
+		populateListView();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setUpTitle();
+	}
+	
+	protected void setFirstRunToFalse() {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		Editor ed = sp.edit();
 		ed.putBoolean(Settings.KEY_FIRST_RUN, false);
 		ed.commit();
-		
-		// Populate listview with an arraylist, which is in turn populated with messages
-		
-		init();
-		
-		// Set title of screen to name of network
+	}
+	
+	protected void init() {
+		et_message = (EditText) this.findViewById(R.id.message_text);
+		bu_priority = (Button) this.findViewById(R.id.bu_priority);
+	}
+	
+	protected void setUpTitle() {
 		this.setTitle(getNetworkName());
+	}
+	
+	protected String getNetworkName() {
+		String ssid = "";
+		WifiManager wifiMgr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+		if (wifiMgr.isWifiEnabled()) {
+			WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+			ssid = wifiInfo.getSSID();
+		}
+		
+		// Remove quotations from string
+		ssid = ssid.replace("\"", "");
+		
+		return ssid;
+	}
+	
+	protected void populateListView() {
+		// Populate listview with an arraylist, which is in turn populated with messages
 		messages = new ArrayList<Message>();
 		
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		messages.add(new Message(true, "Fuck man, she's still talking", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
 		messages.add(new Message(true, "She does this literally every class", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
 		messages.add(new Message(false, "you'd think she'd catch on by now", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
@@ -69,21 +99,6 @@ public class HomeActivity extends ListActivity {
 		
 		// Demonstrate hot-swapping of messages in list
 		addNewMessage(new Message(false, "foo"));
-	}
-	
-	protected void init() {
-		et_message = (EditText) this.findViewById(R.id.message_text);
-		bu_priority = (Button) this.findViewById(R.id.bu_priority);
-	}
-	
-	protected String getNetworkName() {
-		String ssid = "";
-		WifiManager wifiMgr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-		if (wifiMgr.isWifiEnabled()) {
-			WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-			ssid = wifiInfo.getSSID();
-		}
-		return ssid;
 	}
 
 	@Override
@@ -113,9 +128,9 @@ public class HomeActivity extends ListActivity {
 	}
 	
 	// Called when user wants to set the priority of their message
+	@Deprecated
 	public void setPriority(View v) {
 		showDialog(PRIORITY_FLAG);
-		Toast.makeText(getApplicationContext(), "got it", Toast.LENGTH_SHORT).show();
 	}
 
 	// Call to initiate a thread (AsyncTask)

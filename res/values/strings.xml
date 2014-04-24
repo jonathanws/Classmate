@@ -6,6 +6,8 @@
     
     <string name="menu_settings">Settings</string>
     
+    <string name="layout_homeactivity_write_message">Write message</string>
+    
     <string name="layout_user_setup_name">Display name</string>
     <string name="layout_user_setup_details">Your display name will be shown with all of your messages.  Make it whatever you like</string>
     <string name="layout_user_setup_display_name">Choose your name</string>
