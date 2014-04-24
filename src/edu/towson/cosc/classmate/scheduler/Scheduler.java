@@ -32,11 +32,11 @@ public class Scheduler {
 		return toQueue( call );
 	}
 	
-	public static MultilevelQueue getQueue() {
+	public synchronized static MultilevelQueue getQueue() {
 		return Scheduler.queue;
 	}
 	
-	private static boolean toQueue( SystemCall call ) {
+	private synchronized static boolean toQueue( SystemCall call ) {
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
 			return true;
@@ -45,7 +45,7 @@ public class Scheduler {
 		return false;
 	}
 	
-	public static void notifyDispatcher() {
+	public synchronized static void notifyDispatcher() {
 		if( queue.getCount() == 1 ) {
 			dispatcher.start();
 		}

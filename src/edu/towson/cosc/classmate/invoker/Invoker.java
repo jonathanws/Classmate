@@ -16,20 +16,20 @@ public class Invoker {
 	private static int STACK_SIZE = 100;
 	
 	// Invoker commands for accessing the Aggregator
-	public static Message addMessage( Message msg ) {
+	public synchronized static Message addMessage( Message msg ) {
 		return (Message) new AddMessage( aggr, msg ).execute();
 	}
 	
-	public static Message deleteMessage( int index ) {
+	public synchronized static Message deleteMessage( int index ) {
 		Command action = new DeleteMessage( aggr, index );
 		return (Message) action.execute();
 	}
 	
-	public static Message getMessage( int index ) {
+	public synchronized static Message getMessage( int index ) {
 		return (Message) new GetMessage( aggr, index ).execute();
 	}
 	
-	public static MessageList getAllMessages() {
+	public synchronized static MessageList getAllMessages() {
 		return (MessageList) new GetMessageList( aggr ).execute();
 	}
 	

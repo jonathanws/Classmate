@@ -19,7 +19,7 @@ public class MultilevelQueue {
 		this.FCFS = new LinkedList<SystemCall>();
 	}
 	
-	int getCount() {
+	synchronized int getCount() {
 		return this.count;
 	}
 	
@@ -45,7 +45,7 @@ public class MultilevelQueue {
 	// Scheduling Methods
 	// TODO: Make sure system calls can be deterministically
 	// added to a queue with this method
-	private boolean toQueue( Queue q, SystemCall call ) {
+	private synchronized boolean toQueue( Queue q, SystemCall call ) {
 		if( q.add( call ) ) {
 			this.count++;
 			return true;

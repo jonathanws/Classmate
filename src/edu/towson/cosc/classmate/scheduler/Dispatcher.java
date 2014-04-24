@@ -8,7 +8,7 @@ public class Dispatcher implements Runnable {
 	private ExecutorService dispatcher = Executors.newSingleThreadExecutor();
 	private Thread runner = new Thread( this, "Dispatcher" );
 	
-	public void run() {
+	public synchronized void run() {
 		MultilevelQueue queue = Scheduler.getQueue();
 		
 		while( queue.getCount() > 0 ) {
@@ -21,7 +21,7 @@ public class Dispatcher implements Runnable {
 	}
 	
 	// For "fun" method (can implement if bored)
-	public void preempt( SystemCall task ) {
+	public synchronized void preempt( SystemCall task ) {
 		
 	}
 	
