@@ -43,6 +43,8 @@ public class MultilevelQueue {
 	}
 	
 	// Scheduling Methods
+	// TODO: Make sure system calls can be deterministically
+	// added to a queue with this method
 	private boolean toQueue( Queue q, SystemCall call ) {
 		if( q.add( call ) ) {
 			this.count++;

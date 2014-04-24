@@ -22,8 +22,6 @@ public class Invoker {
 	
 	public static Message deleteMessage( int index ) {
 		Command action = new DeleteMessage( aggr, index );
-		Invoker.undo.add( action );
-		
 		return (Message) action.execute();
 	}
 	
@@ -39,7 +37,7 @@ public class Invoker {
 	public static Object redo() {
 		Command action;
 		
-		if ( Invoker.redo.size() > 0 ) {
+		if( Invoker.redo.size() > 0 ) {
 			action = Invoker.redo.pop();
 			
 			while( Invoker.undo.size() >= STACK_SIZE ) {
@@ -57,7 +55,7 @@ public class Invoker {
 	public static Object undo() {
 		Command action;
 		
-		if ( Invoker.undo.size() > 0 ) {
+		if( Invoker.undo.size() > 0 ) {
 			action = Invoker.undo.pop();
 			
 			while( Invoker.redo.size() >= STACK_SIZE ) {
