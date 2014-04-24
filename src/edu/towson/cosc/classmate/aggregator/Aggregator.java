@@ -1,15 +1,11 @@
 package edu.towson.cosc.classmate.aggregator;
 
-import java.util.ArrayList;
-
-import edu.towson.cosc.classmate.Message;
-
 public class Aggregator {
 	
 	// Link to message storage here
-	ArrayList<Message> messages = new ArrayList<Message>();
+	MessageList messages = new MessageList();
 	
-	public ArrayList<Message> getMessages() {
+	public synchronized MessageList getMessages() {
 		return this.messages;
 	}
 	

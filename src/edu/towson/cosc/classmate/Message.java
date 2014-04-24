@@ -1,7 +1,9 @@
 package edu.towson.cosc.classmate;
 
 /**
- * Defines a new Message object.  A message is anything that is sent, or received.
+ * Defines a new Message object. A message is anything that is sent, or
+ * received.
+ * 
  * @author jonathanws
  */
 public class Message {
@@ -18,17 +20,19 @@ public class Message {
 	
 	public static final int HIGH_PRIORITY = 3;
 	public static final int MEDIUM_PRIORITY = 2;
-	public static final int LOW_PRIORITY = 1; 
-	
+	public static final int LOW_PRIORITY = 1;
 	
 	// Constructor methods
 	
 	/**
 	 * Constructor for a new message
-	 * @param isMine Ownership of message.  Either user(true) or some shmoe(false)
-	 * @param message Actual string of message
+	 * 
+	 * @param isMine
+	 *            Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message
+	 *            Actual string of message
 	 */
-	public Message(boolean isMine, String message) {
+	public Message( boolean isMine, String message ) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mPriority = LOW_PRIORITY;
@@ -36,12 +40,17 @@ public class Message {
 	
 	/**
 	 * Constructor for a new message
-	 * @param isMine Ownership of message.  Either user(true) or some shmoe(false)
-	 * @param message Actual string of message
-	 * @param ip IP of whomever
-	 * @param priority priority of message
+	 * 
+	 * @param isMine
+	 *            Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message
+	 *            Actual string of message
+	 * @param ip
+	 *            IP of whomever
+	 * @param priority
+	 *            priority of message
 	 */
-	public Message(boolean isMine, String message, String ip, int priority) {
+	public Message( boolean isMine, String message, String ip, int priority ) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mIP = ip;
@@ -50,12 +59,17 @@ public class Message {
 	
 	/**
 	 * Constructor for a new message
-	 * @param isMine Ownership of message.  Either user(true) or some shmoe(false)
-	 * @param message Actual string of message
-	 * @param ip IP of whomever
-	 * @param timestamp Date and time message was initialized.
+	 * 
+	 * @param isMine
+	 *            Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message
+	 *            Actual string of message
+	 * @param ip
+	 *            IP of whomever
+	 * @param timestamp
+	 *            Date and time message was initialized.
 	 */
-	public Message(boolean isMine, String message, String ip, String timestamp) {
+	public Message( boolean isMine, String message, String ip, String timestamp ) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mIP = ip;
@@ -69,8 +83,11 @@ public class Message {
 		return this.mIsMine;
 	}
 	
-	/** @param status boolean for mIsMine */
-	public void setMine(boolean status) {
+	/**
+	 * @param status
+	 *            boolean for mIsMine
+	 */
+	public void setMine( boolean status ) {
 		this.mIsMine = status;
 	}
 	
@@ -79,8 +96,11 @@ public class Message {
 		return this.mMessage;
 	}
 	
-	/** @param mes String for message */
-	public void setMessage(String mes) {
+	/**
+	 * @param mes
+	 *            String for message
+	 */
+	public void setMessage( String mes ) {
 		this.mMessage = mes;
 	}
 	
@@ -89,8 +109,11 @@ public class Message {
 		return this.mTimestamp;
 	}
 	
-	/** @param timestamp String for timestamp */
-	public void setTimestamp(String timestamp) {
+	/**
+	 * @param timestamp
+	 *            String for timestamp
+	 */
+	public void setTimestamp( String timestamp ) {
 		this.mTimestamp = timestamp;
 	}
 	
@@ -99,8 +122,11 @@ public class Message {
 		return this.mIP;
 	}
 	
-	/** @param ip int for IP address */
-	public void setIP(String ip) {
+	/**
+	 * @param ip
+	 *            int for IP address
+	 */
+	public void setIP( String ip ) {
 		this.mIP = ip;
 	}
 	
@@ -109,9 +135,12 @@ public class Message {
 		return this.mPriority;
 	}
 	
-	/** @param priority must be one of three constant values */
-	public void setPriority(int priority) {
+	/**
+	 * @param priority
+	 *            must be one of three constant values
+	 */
+	public void setPriority( int priority ) {
 		this.mPriority = priority;
 	}
-
+	
 }
