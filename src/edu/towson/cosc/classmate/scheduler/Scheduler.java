@@ -9,42 +9,54 @@ public class Scheduler {
 	
 	public static boolean delete( Runnable thread, int index ) {
 		DeleteMessage call = new DeleteMessage( index );
-		return toQueue( call );
+		if( queue.schedule( call ) ) {
+			notifyDispatcher();
+			return true;
+		}
+		return false;
 	}
 	
 	public static boolean display( Runnable thread, int index ) {
 		DisplayMessage call = new DisplayMessage( index );
-		return toQueue( call );
+		if( queue.schedule( call ) ) {
+			notifyDispatcher();
+			return true;
+		}
+		return false;
 	}
 	
 	public static boolean displayAllMessages( Runnable thread ) {
 		DisplayAllMessages call = new DisplayAllMessages();
-		return toQueue( call );
+		if( queue.schedule( call ) ) {
+			notifyDispatcher();
+			return true;
+		}
+		return false;
 	}
 	
 	public static boolean receive( Runnable thread, Message msg ) {
 		ReceiveMessage call = new ReceiveMessage( msg );
-		return toQueue( call );
+		if( queue.schedule( call ) ) {
+			notifyDispatcher();
+			return true;
+		}
+		return false;
 	}
 	
 	public static boolean send( Runnable thread, Message msg ) {
 		SendMessage call = new SendMessage( msg );
-		return toQueue( call );
+		if( queue.schedule( call ) ) {
+			notifyDispatcher();
+			return true;
+		}
+		return false;
 	}
 	
 	public synchronized static MultilevelQueue getQueue() {
 		return Scheduler.queue;
 	}
 	
-	private synchronized static boolean toQueue( SystemCall call ) {
-		if( queue.schedule( call ) ) {
-			notifyDispatcher();
-			return true;
-		}
-		
-		return false;
-	}
-	
+	// Notify Dispatcher that SystemCall has been queued
 	public synchronized static void notifyDispatcher() {
 		if( !dispatcher.isAlive() ) {
 			dispatcher.start();

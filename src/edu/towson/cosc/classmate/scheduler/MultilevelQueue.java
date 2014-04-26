@@ -1,32 +1,31 @@
 package edu.towson.cosc.classmate.scheduler;
 
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class MultilevelQueue {
 	
-	private int count;
+	private int size;
 	private Queue<UserCall> user;
 	private Queue<SendMessage> outgoing;
-	private PriorityQueue<ReceiveMessage> incoming;
+	private Queue<ReceiveMessage> incoming;
 	private Queue<SystemCall> FCFS;
 	
 	MultilevelQueue() {
 		this.user = new LinkedList<UserCall>();
 		this.outgoing = new LinkedList<SendMessage>();
-		this.incoming = new PriorityQueue<ReceiveMessage>();
+		this.incoming = new LinkedList<ReceiveMessage>();
 		this.FCFS = new LinkedList<SystemCall>();
 	}
 	
-	synchronized int getCount() {
-		return this.count;
+	synchronized int size() {
+		return this.size;
 	}
 	
 	// Executing Next Command Methods
 	synchronized SystemCall nextCommand() {
-		if( this.count > 0 ) {
-			this.count--;
+		if( this.size > 0 ) {
+			this.size--;
 			
 			if( this.user.size() > 0 ) {
 				return this.user.poll();
@@ -43,11 +42,27 @@ public class MultilevelQueue {
 	}
 	
 	// Scheduling Methods
-	// TODO: Make sure system calls can be deterministically
-	// added to a queue with this method
-	private synchronized boolean toQueue( Queue q, SystemCall call ) {
-		if( q.add( call ) ) {
-			this.count++;
+	synchronized boolean schedule( UserCall call ) {
+		if( this.user.add( call ) ) {
+			this.size++;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	synchronized boolean schedule( SendMessage call ) {
+		if( this.outgoing.add( call ) ) {
+			this.size++;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	synchronized boolean schedule( ReceiveMessage call ) {
+		if( this.incoming.add( call ) ) {
+			this.size++;
 			return true;
 		}
 		
@@ -55,19 +70,12 @@ public class MultilevelQueue {
 	}
 	
 	synchronized boolean schedule( SystemCall call ) {
-		return toQueue( this.FCFS, call );
-	}
-	
-	synchronized boolean schedule( UserCall call ) {
-		return toQueue( this.user, call );
-	}
-	
-	synchronized boolean schedule( NetworkCall call ) {
-		if( call instanceof SendMessage ) {
-			return toQueue( this.outgoing, call );
+		if( this.FCFS.add( call ) ) {
+			this.size++;
+			return true;
 		}
 		
-		return toQueue( this.incoming, call );
+		return false;
 	}
 	
 }

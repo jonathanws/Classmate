@@ -12,6 +12,10 @@ public class DisplayMessage extends UserCall {
 	
 	// TODO: Implement
 	public synchronized void run() {
-		Invoker.getMessage( this.index );
+		try {
+			Invoker.getMessage( this.index );
+		} catch( IndexOutOfBoundsException error ) {
+			// Notify the user that the message to get doesn't exist in memory
+		}
 	}
 }

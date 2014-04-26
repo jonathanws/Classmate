@@ -17,7 +17,7 @@ public class MessageList {
 		return list.add( msg );
 	}
 	
-	public synchronized void deleteMessage( int index ) {
+	public synchronized void deleteMessage( int index ) throws IndexOutOfBoundsException {
 		list.remove( index );
 	}
 	
@@ -25,7 +25,7 @@ public class MessageList {
 		return this.list;
 	}
 	
-	public synchronized Message getMessage( int index ) {
+	public synchronized Message getMessage( int index ) throws IndexOutOfBoundsException {
 		return list.get( index );
 	}
 	

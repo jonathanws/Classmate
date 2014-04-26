@@ -20,17 +20,17 @@ public class Invoker {
 		return (Message) new AddMessage( aggr, msg ).execute();
 	}
 	
-	public synchronized static Message deleteMessage( int index ) {
+	public synchronized static Message deleteMessage( int index ) throws IndexOutOfBoundsException {
 		Command action = new DeleteMessage( aggr, index );
 		return (Message) action.execute();
 	}
 	
-	public synchronized static Message getMessage( int index ) {
-		return (Message) new GetMessage( aggr, index ).execute();
-	}
-	
 	public synchronized static MessageList getAllMessages() {
 		return (MessageList) new GetMessageList( aggr ).execute();
+	}
+	
+	public synchronized static Message getMessage( int index ) throws IndexOutOfBoundsException {
+		return (Message) new GetMessage( aggr, index ).execute();
 	}
 	
 	// Undo and Redo methods

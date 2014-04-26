@@ -11,7 +11,12 @@ public class DeleteMessage extends UserCall {
 	
 	// TODO: Implement
 	public synchronized void run() {
-		Invoker.deleteMessage( this.index );
+		System.out.println( "DELETE MESSAGE" );
+		try {
+			Invoker.deleteMessage( this.index );
+		} catch( IndexOutOfBoundsException error ) {
+			// Notify the user that the message to delete doesn't exist in memory
+		}
 	}
 	
 }

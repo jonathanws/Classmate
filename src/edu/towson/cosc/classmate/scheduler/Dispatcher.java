@@ -12,15 +12,15 @@ public class Dispatcher implements Runnable {
 	public synchronized void run() {
 		MultilevelQueue queue = Scheduler.getQueue();
 		
-		while( queue.getCount() > 0 ) {
+		while( queue.size() > 0 ) {
 			this.current = queue.nextCommand();
 			
-			dispatcher.execute( current );
+			this.dispatcher.execute( this.current );
 			
-			current.join();
+			this.current.join();
 		}
 		
-		dispatcher.shutdown();
+		this.dispatcher.shutdown();
 	}
 	
 	public boolean isAlive() {
@@ -30,8 +30,8 @@ public class Dispatcher implements Runnable {
 	// For "fun" method (can implement if bored)
 	public synchronized void preempt( SystemCall task ) {
 		try {
-			dispatcher.wait();
-			dispatcher.execute( task );
+			this.dispatcher.wait();
+			this.dispatcher.execute( task );
 		} catch( InterruptedException error ) {
 			
 		}
@@ -46,7 +46,13 @@ public class Dispatcher implements Runnable {
 	}
 	
 	public void start() {
-		this.runner.start();
+		try {
+			this.runner.start();
+		} catch( IllegalMonitorStateException error ) {
+			
+		} catch( IllegalThreadStateException error ) {
+			
+		}
 	}
 	
 }
