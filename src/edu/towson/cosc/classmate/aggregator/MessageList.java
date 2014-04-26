@@ -9,6 +9,10 @@ public class MessageList {
 	
 	private ArrayList<Message> list;
 	
+	public MessageList() {
+		this.list = new ArrayList<Message>();
+	}
+	
 	public synchronized boolean addMessage( Message msg ) {
 		return list.add( msg );
 	}
