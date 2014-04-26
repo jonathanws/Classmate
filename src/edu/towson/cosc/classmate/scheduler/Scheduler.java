@@ -46,7 +46,7 @@ public class Scheduler {
 	}
 	
 	public synchronized static void notifyDispatcher() {
-		if( queue.getCount() == 1 ) {
+		if( !dispatcher.isAlive() ) {
 			dispatcher.start();
 		}
 	}
