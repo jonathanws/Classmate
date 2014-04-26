@@ -22,4 +22,12 @@ public abstract class SystemCall implements Runnable {
 		this.runner.start();
 	}
 	
+	public void interrupt() throws InterruptedException {
+		this.runner.wait();
+	}
+	
+	public void resume() {
+		this.runner.notify();
+	}
+	
 }

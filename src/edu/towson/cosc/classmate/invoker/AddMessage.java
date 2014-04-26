@@ -15,7 +15,7 @@ public class AddMessage implements Command {
 	}
 	
 	public synchronized Object execute() {
-		if ( this.list.addMessage( this.msg ) ) {
+		if( this.list.addMessage( this.msg ) ) {
 			return this.msg;
 		}
 		

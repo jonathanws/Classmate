@@ -19,6 +19,8 @@ public class Dispatcher implements Runnable {
 			
 			current.join();
 		}
+		
+		dispatcher.shutdown();
 	}
 	
 	public boolean isAlive() {
