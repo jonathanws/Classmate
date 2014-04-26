@@ -4,7 +4,7 @@ import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
 import edu.towson.cosc.classmate.aggregator.MessageList;
 
-public class AddMessage implements Command {
+class AddMessage implements Command {
 	
 	private MessageList list;
 	private final Message msg;

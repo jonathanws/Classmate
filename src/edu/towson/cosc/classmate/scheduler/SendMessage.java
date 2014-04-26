@@ -5,7 +5,6 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 
 public class SendMessage extends NetworkCall {
 	
-	// TODO: Add constructors
 	SendMessage( Message msg ) {
 		super();
 		this.msg = msg;

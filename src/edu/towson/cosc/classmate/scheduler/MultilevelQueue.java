@@ -3,7 +3,7 @@ package edu.towson.cosc.classmate.scheduler;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class MultilevelQueue {
+class MultilevelQueue {
 	
 	private int size;
 	private Queue<UserCall> user;

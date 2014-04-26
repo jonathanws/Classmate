@@ -4,7 +4,6 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 
 public class DisplayMessage extends UserCall {
 	
-	// TODO: Add constructors
 	DisplayMessage( int index ) {
 		super();
 		this.index = index;

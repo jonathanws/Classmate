@@ -7,6 +7,7 @@ public class Scheduler {
 	private static Dispatcher dispatcher = new Dispatcher();
 	private static MultilevelQueue queue = new MultilevelQueue();
 	
+	// Schedule Methods
 	public static boolean delete( Runnable thread, int index ) {
 		DeleteMessage call = new DeleteMessage( index );
 		if( queue.schedule( call ) ) {
@@ -52,8 +53,13 @@ public class Scheduler {
 		return false;
 	}
 	
+	// Getter Method(s)
 	public synchronized static MultilevelQueue getQueue() {
 		return Scheduler.queue;
+	}
+	
+	public synchronized static Dispatcher getDispatcher() {
+		return Scheduler.dispatcher;
 	}
 	
 	// Notify Dispatcher that SystemCall has been queued

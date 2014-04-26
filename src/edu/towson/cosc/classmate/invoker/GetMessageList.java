@@ -3,7 +3,7 @@ package edu.towson.cosc.classmate.invoker;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
 import edu.towson.cosc.classmate.aggregator.MessageList;
 
-public class GetMessageList implements Command {
+class GetMessageList implements Command {
 	
 	private MessageList list;
 	

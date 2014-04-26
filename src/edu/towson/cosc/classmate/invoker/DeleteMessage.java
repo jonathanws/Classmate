@@ -4,7 +4,7 @@ import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
 import edu.towson.cosc.classmate.aggregator.MessageList;
 
-public class DeleteMessage implements Command {
+class DeleteMessage implements Command {
 	
 	private MessageList list;
 	private final int index;
@@ -18,7 +18,7 @@ public class DeleteMessage implements Command {
 	public synchronized Object execute() {
 		this.msg = list.getMessage( this.index );
 		
-		if ( this.msg != null ) {
+		if( this.msg != null ) {
 			this.list.deleteMessage( this.index );
 		}
 		

@@ -1,6 +1,6 @@
 package edu.towson.cosc.classmate.invoker;
 
-public interface Command {
+interface Command {
 	
 	public Object execute();
 	
