@@ -7,22 +7,32 @@ public class Dispatcher implements Runnable {
 	
 	private ExecutorService dispatcher = Executors.newSingleThreadExecutor();
 	private Thread runner = new Thread( this, "Dispatcher" );
+	private SystemCall current;
 	
 	public synchronized void run() {
 		MultilevelQueue queue = Scheduler.getQueue();
 		
 		while( queue.getCount() > 0 ) {
-			SystemCall next = queue.nextCommand();
+			this.current = queue.nextCommand();
 			
-			dispatcher.execute( next );
+			dispatcher.execute( current );
 			
-			next.join();
+			current.join();
 		}
+	}
+	
+	public boolean isAlive() {
+		return runner.isAlive();
 	}
 	
 	// For "fun" method (can implement if bored)
 	public synchronized void preempt( SystemCall task ) {
-		
+		try {
+			dispatcher.wait();
+			dispatcher.execute( task );
+		} catch( InterruptedException error ) {
+			
+		}
 	}
 	
 	public void join() {
