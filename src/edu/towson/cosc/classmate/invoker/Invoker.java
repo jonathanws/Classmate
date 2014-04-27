@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
-import edu.towson.cosc.classmate.aggregator.MessageList;
+import edu.towson.cosc.classmate.aggregator.Conversation;
 
 public class Invoker {
 	
@@ -25,8 +25,8 @@ public class Invoker {
 		return (Message) action.execute();
 	}
 	
-	public synchronized static MessageList getAllMessages() {
-		return (MessageList) new GetMessageList( aggr ).execute();
+	public synchronized static Conversation getAllMessages() {
+		return (Conversation) new GetMessageList( aggr ).execute();
 	}
 	
 	public synchronized static Message getMessage( int index ) throws IndexOutOfBoundsException {

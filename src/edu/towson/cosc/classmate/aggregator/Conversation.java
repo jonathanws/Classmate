@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import edu.towson.cosc.classmate.Message;
 
-public class MessageList {
+public class Conversation {
 	
 	private ArrayList<Message> list;
 	
 	/** Include Reference to SQLite table here */
 	
-	MessageList() {
+	Conversation() {
 		this.list = new ArrayList<Message>();
 	}
 	

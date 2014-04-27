@@ -1,5 +1,6 @@
 package edu.towson.cosc.classmate.scheduler;
 
+import edu.towson.cosc.classmate.aggregator.Conversation;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
 public class DisplayAllMessages extends UserCall {
@@ -10,7 +11,7 @@ public class DisplayAllMessages extends UserCall {
 	
 	// TODO: Implement
 	public void run() {
-		Invoker.getAllMessages();
+		Conversation list = Invoker.getAllMessages();
 	}
 	
 }

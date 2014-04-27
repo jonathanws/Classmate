@@ -4,11 +4,11 @@ import edu.towson.cosc.classmate.Message;
 
 public class Aggregator {
 	
-	private MessageList messages = new MessageList();
+	private Conversation messages = new Conversation();
 	private Message draft = new Message( true, "" ); // Possibly not needed
 	
 	// Getter Method(s)
-	public synchronized MessageList getMessages() {
+	public synchronized Conversation getMessages() {
 		return this.messages;
 	}
 	

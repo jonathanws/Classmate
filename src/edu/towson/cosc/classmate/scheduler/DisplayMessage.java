@@ -1,5 +1,6 @@
 package edu.towson.cosc.classmate.scheduler;
 
+import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
 public class DisplayMessage extends UserCall {
@@ -12,7 +13,7 @@ public class DisplayMessage extends UserCall {
 	// TODO: Implement
 	public synchronized void run() {
 		try {
-			Invoker.getMessage( this.index );
+			Message msg = Invoker.getMessage( this.index );
 		} catch( IndexOutOfBoundsException error ) {
 			// Notify the user that the message to get doesn't exist in memory
 		}

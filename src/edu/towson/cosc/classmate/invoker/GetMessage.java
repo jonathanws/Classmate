@@ -1,11 +1,11 @@
 package edu.towson.cosc.classmate.invoker;
 
 import edu.towson.cosc.classmate.aggregator.Aggregator;
-import edu.towson.cosc.classmate.aggregator.MessageList;
+import edu.towson.cosc.classmate.aggregator.Conversation;
 
 class GetMessage implements Command {
 	
-	private MessageList list;
+	private Conversation list;
 	private final int index;
 	
 	GetMessage( Aggregator aggr, int index ) {
