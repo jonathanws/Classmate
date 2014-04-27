@@ -1,7 +1,6 @@
 package edu.towson.cosc.classmate.aggregator;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import edu.towson.cosc.classmate.Message;
 
@@ -9,7 +8,9 @@ public class MessageList {
 	
 	private ArrayList<Message> list;
 	
-	public MessageList() {
+	/** Include Reference to SQLite table here */
+	
+	MessageList() {
 		this.list = new ArrayList<Message>();
 	}
 	
@@ -21,7 +22,7 @@ public class MessageList {
 		list.remove( index );
 	}
 	
-	public synchronized Collection<Message> getList() {
+	public synchronized ArrayList<Message> getList() {
 		return this.list;
 	}
 	
