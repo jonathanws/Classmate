@@ -3,7 +3,7 @@ package edu.towson.cosc.classmate.scheduler;
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
-public class SendMessage extends NetworkCall {
+class SendMessage extends NetworkCall {
 	
 	SendMessage( Message msg ) {
 		super();

@@ -3,7 +3,7 @@ package edu.towson.cosc.classmate.scheduler;
 import edu.towson.cosc.classmate.aggregator.Conversation;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
-public class DisplayAllMessages extends UserCall {
+class DisplayAllMessages extends UserCall {
 	
 	public DisplayAllMessages() {
 		super();
