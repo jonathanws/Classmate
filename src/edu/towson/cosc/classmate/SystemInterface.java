@@ -6,7 +6,7 @@ import java.util.Queue;
 
 import edu.towson.cosc.classmate.scheduler.Scheduler;
 
-public class SystemInterface {
+class SystemInterface {
 	
 	private static Format returnFormat;
 	
