@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class Splash extends Activity {
 	
-	public static final int SLEEP_DURATION = 5000;
+	public static final int SLEEP_DURATION = 1000;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
