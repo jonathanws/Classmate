@@ -2,6 +2,12 @@
 <resources>
     
     <color name="app_color">#669900</color>
+    <color name="background_color">#E5E5E5</color>
+    <color name="shadow">#DBDBDB</color>
+    
+    <color name="priority_low">#669900</color>
+    <color name="priority_medium">#FF8800</color>
+    <color name="priority_high">#CC0000</color>
     
     <color name="white">#FFFFFF</color>
 </resources>

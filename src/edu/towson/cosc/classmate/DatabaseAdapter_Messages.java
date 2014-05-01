@@ -1,14 +1,13 @@
 package edu.towson.cosc.classmate;
 
 import static android.provider.BaseColumns._ID;
-//import static edu.towson.cosc.classmate.DatabaseConstants.ITEM_NAME;
 import static edu.towson.cosc.classmate.DatabaseConstants.TABLE_DRAFTS;
 import static edu.towson.cosc.classmate.DatabaseConstants.DATABASE_NAME;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseMessages extends SQLiteOpenHelper {
+public class DatabaseAdapter_Messages extends SQLiteOpenHelper {
 	
 	// This class is primarily used to instantiate the database, and handle updates
 
@@ -16,16 +15,14 @@ public class DatabaseMessages extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 
 	// Create a helper object
-	public DatabaseMessages(Context ctx) {
+	public DatabaseAdapter_Messages(Context ctx) {
 		super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	// TABLE_DRAFTS comes from DatabaseConstants.java
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-//		db.execSQL(
-//				"CREATE TABLE " + TABLE_DRAFTS + 
-//				" (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ITEM_NAME + " TEXT NOT NULL);");
+//		db.execSQL(DATABASE_DRAFTS);
 	}
 
 	@Override

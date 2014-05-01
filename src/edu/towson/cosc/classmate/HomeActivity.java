@@ -4,52 +4,75 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.graphics.Color;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.ViewFlipper;
 
-// Class defines activity where communication will take place
 public class HomeActivity extends ListActivity {
 	
 	ArrayList<Message> messages;
-	AwesomeAdapter adapter;
-	EditText et_message;
-	Button bu_priority;
-	static String sender;
+	protected EditText et_message;
+	protected View v_bottomBar;
+	protected ViewFlipper v_flipper;
 	
-	private static final int PRIORITY_FLAG = 7; // Why not
+	private DatabaseAdapter_Drafts dataAdapter;
+	private MyCursorAdapter myCursorAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home_draft_1); //TODO change me
+		setContentView(R.layout.layout_main); //TODO change me
 		
 		// Set FIRST_RUN variable to false now
 		setFirstRunToFalse();
 		init();
 		setUpTitle();
-		populateListView();
+		
+		dataAdapter = new DatabaseAdapter_Drafts(this);
+		dataAdapter.open();
+		
+		// Clean all data
+//		dataAdapter.deleteAllMessages();
+		
+		// Add some sample data
+//		dataAdapter.insertSomeMessages();
+		
+//		Log.d(Settings.TAG, showTableData());
+		
+//		Toast.makeText(getApplicationContext(), getLocalIpAddress(), Toast.LENGTH_LONG).show();
+		
+		// Generate ListView from SQLite Database
+		displayListView();
+		
+		scrollListViewToBottom();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		setUpTitle();
+//		((BaseAdapter) getListView().getAdapter()).notifyDataSetChanged(); TODO
 	}
 	
 	protected void setFirstRunToFalse() {
@@ -60,8 +83,17 @@ public class HomeActivity extends ListActivity {
 	}
 	
 	protected void init() {
-		et_message = (EditText) this.findViewById(R.id.message_text);
-		bu_priority = (Button) this.findViewById(R.id.bu_priority);
+		et_message = (EditText) this.findViewById(R.id.et_text);
+		v_bottomBar = (View) this.findViewById(R.id.bottom_view_bar);
+		
+		v_flipper = (ViewFlipper) this.findViewById(R.id.vf_priority);
+		int[] priorities = {R.drawable.ic_priority_withbox_1, R.drawable.ic_priority_withbox_2, R.drawable.ic_priority_withbox_3};
+		for (int i = 0; i < priorities.length; i++) {
+			ImageView image = new ImageView(getApplicationContext());
+			image.setBackgroundResource(priorities[i]);
+			v_flipper.addView(image);
+		}
+		
 	}
 	
 	protected void setUpTitle() {
@@ -74,7 +106,8 @@ public class HomeActivity extends ListActivity {
 		if (wifiMgr.isWifiEnabled()) {
 			WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
 			ssid = wifiInfo.getSSID();
-		}
+		} else
+			ssid = "Wifi disabled";
 		
 		// Remove quotations from string
 		ssid = ssid.replace("\"", "");
@@ -82,23 +115,35 @@ public class HomeActivity extends ListActivity {
 		return ssid;
 	}
 	
-	protected void populateListView() {
-		// Populate listview with an arraylist, which is in turn populated with messages
-		messages = new ArrayList<Message>();
+	private void displayListView() {
 		
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		messages.add(new Message(true, "Fuck man, she's still talking", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
-		messages.add(new Message(true, "She does this literally every class", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
-		messages.add(new Message(false, "you'd think she'd catch on by now", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
-		messages.add(new Message(true, "fat chance, she can't tell that we don't pay attention", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
-		messages.add(new Message(false, "truth.  Susq after this?", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
-		messages.add(new Message(true, "If it ever finishes, sure", sp.getString(Settings.KEY_NAME, "Slartibartfast"), getCurrentSystemTime()));
+		final ListView listview = getListView();
+		Cursor c = dataAdapter.selectStar();
+		myCursorAdapter = new MyCursorAdapter(this, c);
+		listview.setAdapter(myCursorAdapter);
 		
-		adapter = new AwesomeAdapter(this, messages);
-		setListAdapter(adapter);
+//		listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+//			@Override
+//			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+////				Cursor cursor = (Cursor) listview.getItemAtPosition(position);
+////				String countryCode = cursor.getString(cursor.getColumnIndexOrThrow("code"));
+//				
+//				Toast.makeText(getApplicationContext(), "Sweet, " + position, Toast.LENGTH_SHORT).show();
+//				return false;
+//			}
+//		});
 		
-		// Demonstrate hot-swapping of messages in list
-		addNewMessage(new Message(false, "foo"));
+	}
+	
+	// http://stackoverflow.com/a/7032341/1097170
+	private void scrollListViewToBottom() {
+	    getListView().post(new Runnable() {
+	        @Override
+	        public void run() {
+	            // Select the last row so it will scroll into view...
+	            getListView().setSelection(myCursorAdapter.getCount() - 1);
+	        }
+	    });
 	}
 
 	@Override
@@ -127,16 +172,30 @@ public class HomeActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Called when users wants to send a message
+	public void onSend(View v) {
+		Toast.makeText(getApplicationContext(), "sweet deal", Toast.LENGTH_SHORT).show();
+//		sendMessage();
+	}
+	
 	// Called when user wants to set the priority of their message
 	@Deprecated
 	public void setPriority(View v) {
-		showDialog(PRIORITY_FLAG);
+		v_flipper.showNext();
+		
+		if (v_flipper.getDisplayedChild() == 0) {
+			v_bottomBar.setBackgroundColor(Color.parseColor("#669900"));
+		} else if (v_flipper.getDisplayedChild() == 1) {
+			v_bottomBar.setBackgroundColor(Color.parseColor("#FF8800"));
+		} else if (v_flipper.getDisplayedChild() == 2) {
+			v_bottomBar.setBackgroundColor(Color.parseColor("#CC0000"));
+		}
 	}
 
 	// Call to initiate a thread (AsyncTask)
-	public void sendMessage(View v) {
+	public void sendMessage() {
 		String newMessage = et_message.getText().toString().trim(); 
-		if(newMessage.length() > 0) {
+		if (newMessage.length() > 0) {
 			et_message.setText("");
 			addNewMessage(new Message(true, newMessage));
 			new SendMessage().execute();
@@ -147,40 +206,36 @@ public class HomeActivity extends ListActivity {
 		return DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
 	}
 	
+	public String getLocalIpAddress() {
+		WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+		return Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+	}
+	
 	void addNewMessage(Message m) {
 		messages.add(m);
-		adapter.notifyDataSetChanged();
+//		adapter.notifyDataSetChanged();
 		getListView().setSelection(messages.size()-1);
 	}
 	
-	@Deprecated
-	@Override
-	protected Dialog onCreateDialog(int id) {
+	// For development purposes
+	public void showSQLTables() {
+		Cursor c = dataAdapter.showAllTables();
+		String all = "";
 		
-		switch(id) {
-			case PRIORITY_FLAG:
-				return new AlertDialog.Builder(this) // Make a dialog
-				.setTitle("Set message priority")
-				.setItems(R.array.priority_array, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {						
-						if (which == 0) {
-							bu_priority.setBackgroundResource(R.drawable.ic_priority_withbox_1);
-						}
-						else if(which == 1) {
-							bu_priority.setBackgroundResource(R.drawable.ic_priority_withbox_2);
-						}
-						else if(which == 2) {
-							bu_priority.setBackgroundResource(R.drawable.ic_priority_withbox_3);
-						}
-					}
-				})
-				.create();
-		}
-		return super.onCreateDialog(id);
+		if (c.moveToFirst()) { 
+			do {
+				all = all + c.getString(0) + ", ";
+			} while (c.moveToNext());
+		}        
+        
+		Toast.makeText(getApplicationContext(), all, Toast.LENGTH_LONG).show();
 	}
 	
-	
+	// For development purposes
+	public String showTableData() {
+		Cursor c = dataAdapter.selectStar();
+		return DatabaseUtils.dumpCursorToString(c);
+	}
 	
 	// New thread to send a message
 	private class SendMessage extends AsyncTask<Void, String, String> {
@@ -195,13 +250,13 @@ public class HomeActivity extends ListActivity {
 				e.printStackTrace();
 			}
 
-			this.publishProgress(String.format("%s started writing", sender));
+			this.publishProgress(String.format("%s started writing", "Joe"));
 			try {
 				Thread.sleep(2000); //simulate a network call
 			}catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			this.publishProgress(String.format("%s has entered text", sender));
+			this.publishProgress(String.format("%s has entered text", "Joe"));
 			try {
 				Thread.sleep(3000);//simulate a network call
 			}catch (InterruptedException e) {
@@ -213,19 +268,13 @@ public class HomeActivity extends ListActivity {
 		
 		@Override
 		public void onProgressUpdate(String... v) {
-			
 			// While thread is happening do...
-			
 			// Nothing
-			
 		}
 		@Override
 		protected void onPostExecute(String text) {
-			
 			// Once thread has finished do...
-			
 			// Nothing
-			
 		}
 
 	}
