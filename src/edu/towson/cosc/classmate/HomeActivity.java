@@ -193,6 +193,11 @@ public class HomeActivity extends ListActivity {
 		
 	}
 	
+	// TOASTS
+	public void popToast( String str ) {
+		Toast.makeText( getApplicationContext(), str, Toast.LENGTH_LONG ).show();
+	}
+	
 	// Called when user wants to set the priority of their message
 	@Deprecated
 	public void setPriority( View v ) {

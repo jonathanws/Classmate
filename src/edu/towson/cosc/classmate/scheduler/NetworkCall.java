@@ -16,9 +16,15 @@ abstract class NetworkCall extends SystemCall {
 	}
 	
 	// Update List View
-	public void updateListView() {
+	public void updateListView( String str ) {
 		Looper.prepare();
-		home.displayListView();
+		
+		this.home.displayListView();
+		
+		if( str != null && !str.equals( "" ) ) {
+			this.home.popToast( str );
+		}
+		
 		Looper.loop();
 	}
 }

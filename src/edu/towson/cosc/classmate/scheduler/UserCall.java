@@ -15,9 +15,15 @@ abstract class UserCall extends SystemCall {
 	}
 	
 	// Update List View
-	public void updateListView() {
+	public void updateListView( String str ) {
 		Looper.prepare();
+		
 		home.displayListView();
+		
+		if( str != null && !str.equals( "" ) ) {
+			this.home.popToast( str );
+		}
+		
 		Looper.loop();
 	}
 	

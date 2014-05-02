@@ -15,7 +15,7 @@ class DeleteMessage extends UserCall {
 		System.out.println( "DELETE MESSAGE" );
 		try {
 			Invoker.deleteMessage( this.index );
-			updateListView();
+			updateListView( "Message Deleted" );
 		} catch( IndexOutOfBoundsException error ) {
 			// Notify the user that the message to delete doesn't exist in memory
 		}

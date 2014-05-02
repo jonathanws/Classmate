@@ -14,7 +14,7 @@ class ReceiveMessage extends NetworkCall {
 	// TODO: Implement
 	public synchronized void run() {
 		Invoker.addMessage( this.msg );
-		updateListView();
+		updateListView( null );
 	}
 	
 }

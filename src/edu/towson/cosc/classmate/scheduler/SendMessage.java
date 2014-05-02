@@ -14,7 +14,8 @@ class SendMessage extends NetworkCall {
 	// TODO: Implement
 	public synchronized void run() {
 		Invoker.addMessage( this.msg );
-		this.updateListView();
+		this.updateListView( "Message Sent" );
+		
 	}
 	
 }
