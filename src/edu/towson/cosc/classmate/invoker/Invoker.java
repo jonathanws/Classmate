@@ -3,7 +3,6 @@ package edu.towson.cosc.classmate.invoker;
 import android.content.Context;
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
-import edu.towson.cosc.classmate.aggregator.Conversation;
 import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
 
 public class Invoker {
@@ -18,10 +17,6 @@ public class Invoker {
 	public synchronized static Message deleteMessage( int index ) throws IndexOutOfBoundsException {
 		Command action = new DeleteMessage( aggr, index );
 		return (Message) action.execute();
-	}
-	
-	public synchronized static Conversation getAllMessages() {
-		return (Conversation) new GetMessageList( aggr ).execute();
 	}
 	
 	public synchronized static Message getMessage( int index ) throws IndexOutOfBoundsException {

@@ -5,13 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class Aggregator {
 	
-	private Conversation messages = new Conversation();
 	private SQLiteDatabase database;
-	
-	// Getter Method(s)
-	public synchronized Conversation getMessages() {
-		return this.messages;
-	}
 	
 	public synchronized SQLiteDatabase getDatabase() {
 		return this.database;
