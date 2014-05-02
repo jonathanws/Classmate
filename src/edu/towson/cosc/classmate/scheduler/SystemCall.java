@@ -1,5 +1,8 @@
 package edu.towson.cosc.classmate.scheduler;
 
+import android.os.Looper;
+import edu.towson.cosc.classmate.HomeActivity;
+
 abstract class SystemCall implements Runnable {
 	
 	private Thread runner;
@@ -9,8 +12,6 @@ abstract class SystemCall implements Runnable {
 	}
 	
 	public abstract void run();
-	
-	public abstract void updateListView( String str );
 	
 	public void join() {
 		try {
@@ -30,6 +31,24 @@ abstract class SystemCall implements Runnable {
 	
 	public void resume() {
 		this.runner.notify();
+	}
+	
+	public void updateListView( final HomeActivity home, String str ) {
+		Looper.prepare();
+		
+		home.runOnUiThread( new Runnable() {
+			
+			@Override
+			public void run() {
+				home.displayListView();
+			}
+		} );
+		
+		if( str != null && !str.equals( "" ) ) {
+			home.popToast( str );
+		}
+		
+		Looper.loop();
 	}
 	
 }

@@ -1,6 +1,5 @@
 package edu.towson.cosc.classmate.scheduler;
 
-import android.os.Looper;
 import edu.towson.cosc.classmate.HomeActivity;
 import edu.towson.cosc.classmate.Message;
 
@@ -15,16 +14,4 @@ abstract class NetworkCall extends SystemCall {
 		this.home = home;
 	}
 	
-	// Update List View
-	public void updateListView( String str ) {
-		Looper.prepare();
-		
-		this.home.displayListView();
-		
-		if( str != null && !str.equals( "" ) ) {
-			this.home.popToast( str );
-		}
-		
-		Looper.loop();
-	}
 }

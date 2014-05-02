@@ -97,7 +97,7 @@ public class HomeActivity extends ListActivity {
 		return ssid;
 	}
 	
-	public synchronized void displayListView() {
+	public void displayListView() {
 		ListView listview = getListView();
 		Cursor c = dataAdapter.selectStar();
 		
@@ -105,7 +105,7 @@ public class HomeActivity extends ListActivity {
 		this.cursorAdapter.notifyDataSetChanged();
 		
 		listview.setAdapter( this.cursorAdapter );
-		
+		scrollListViewToBottom();
 	}
 	
 	// http://stackoverflow.com/a/7032341/1097170
@@ -164,7 +164,6 @@ public class HomeActivity extends ListActivity {
 			
 			SystemInterface.send( this, m );
 			
-			this.displayListView();
 			scrollListViewToBottom();
 		}
 		
