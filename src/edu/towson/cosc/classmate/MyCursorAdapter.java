@@ -1,5 +1,6 @@
 package edu.towson.cosc.classmate;
 
+import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;

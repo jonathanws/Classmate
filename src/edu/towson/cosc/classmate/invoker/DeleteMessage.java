@@ -2,8 +2,8 @@ package edu.towson.cosc.classmate.invoker;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import edu.towson.cosc.classmate.DatabaseConstants;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
+import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 
 class DeleteMessage implements Command {
 	

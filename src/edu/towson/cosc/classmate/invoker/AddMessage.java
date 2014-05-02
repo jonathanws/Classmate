@@ -1,12 +1,12 @@
 package edu.towson.cosc.classmate.invoker;
 
-import static edu.towson.cosc.classmate.DatabaseConstants.KEY_IP_ADDR;
-import static edu.towson.cosc.classmate.DatabaseConstants.KEY_ISMINE;
-import static edu.towson.cosc.classmate.DatabaseConstants.KEY_MESSAGE;
-import static edu.towson.cosc.classmate.DatabaseConstants.KEY_NAME;
-import static edu.towson.cosc.classmate.DatabaseConstants.KEY_PRIORITY;
-import static edu.towson.cosc.classmate.DatabaseConstants.KEY_TIMESTAMP;
-import static edu.towson.cosc.classmate.DatabaseConstants.TABLE_DRAFTS;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.KEY_IP_ADDR;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.KEY_ISMINE;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.KEY_MESSAGE;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.KEY_NAME;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.KEY_PRIORITY;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.KEY_TIMESTAMP;
+import static edu.towson.cosc.classmate.aggregator.DatabaseConstants.TABLE_DRAFTS;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import edu.towson.cosc.classmate.Message;

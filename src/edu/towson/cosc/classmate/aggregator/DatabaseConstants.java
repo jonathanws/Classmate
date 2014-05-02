@@ -1,4 +1,4 @@
-package edu.towson.cosc.classmate;
+package edu.towson.cosc.classmate.aggregator;
 
 import android.provider.BaseColumns;
 

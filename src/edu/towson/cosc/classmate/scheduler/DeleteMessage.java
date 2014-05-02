@@ -12,7 +12,6 @@ class DeleteMessage extends UserCall {
 	
 	// TODO: Implement
 	public synchronized void run() {
-		System.out.println( "DELETE MESSAGE" );
 		try {
 			Invoker.deleteMessage( this.index );
 			updateListView( "Message Deleted" );

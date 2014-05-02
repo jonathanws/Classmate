@@ -2,7 +2,6 @@ package edu.towson.cosc.classmate.aggregator;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import edu.towson.cosc.classmate.DatabaseConstants;
 
 public class DatabaseAdapter {
 	
