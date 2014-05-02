@@ -10,6 +10,8 @@ abstract class SystemCall implements Runnable {
 	
 	public abstract void run();
 	
+	public abstract void updateListView();
+	
 	public void join() {
 		try {
 			this.runner.join();

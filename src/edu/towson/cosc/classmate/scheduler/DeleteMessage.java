@@ -6,8 +6,7 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 class DeleteMessage extends UserCall {
 	
 	DeleteMessage( HomeActivity home, int index ) {
-		super();
-		this.home = home;
+		super( home );
 		this.index = index;
 	}
 	
@@ -16,7 +15,7 @@ class DeleteMessage extends UserCall {
 		System.out.println( "DELETE MESSAGE" );
 		try {
 			Invoker.deleteMessage( this.index );
-			home.displayListView();
+			updateListView();
 		} catch( IndexOutOfBoundsException error ) {
 			// Notify the user that the message to delete doesn't exist in memory
 		}

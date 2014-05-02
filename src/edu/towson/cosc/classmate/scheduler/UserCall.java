@@ -1,5 +1,6 @@
 package edu.towson.cosc.classmate.scheduler;
 
+import android.os.Looper;
 import edu.towson.cosc.classmate.HomeActivity;
 
 abstract class UserCall extends SystemCall {
@@ -8,8 +9,16 @@ abstract class UserCall extends SystemCall {
 	protected int index;
 	protected HomeActivity home;
 	
-	public UserCall() {
+	public UserCall( HomeActivity home ) {
 		super();
+		this.home = home;
+	}
+	
+	// Update List View
+	public void updateListView() {
+		Looper.prepare();
+		home.displayListView();
+		Looper.loop();
 	}
 	
 }

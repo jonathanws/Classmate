@@ -7,7 +7,7 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 class DisplayMessage extends UserCall {
 	
 	DisplayMessage( HomeActivity home, int index ) {
-		super();
+		super( home );
 		this.index = index;
 	}
 	

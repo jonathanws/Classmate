@@ -7,15 +7,14 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 class ReceiveMessage extends NetworkCall {
 	
 	ReceiveMessage( HomeActivity home, Message msg ) {
-		super();
-		this.home = home;
+		super( home );
 		this.msg = msg;
 	}
 	
 	// TODO: Implement
 	public synchronized void run() {
 		Invoker.addMessage( this.msg );
-		home.displayListView();
+		updateListView();
 	}
 	
 }

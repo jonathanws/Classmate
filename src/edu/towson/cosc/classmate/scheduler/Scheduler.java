@@ -1,12 +1,12 @@
 package edu.towson.cosc.classmate.scheduler;
 
-import android.util.Log;
 import edu.towson.cosc.classmate.HomeActivity;
 import edu.towson.cosc.classmate.Message;
 
 public class Scheduler {
 	
 	private static Dispatcher dispatcher = new Dispatcher();
+	
 	private static MultilevelQueue queue = new MultilevelQueue();
 	
 	// Schedule Methods
@@ -51,8 +51,6 @@ public class Scheduler {
 	}
 	
 	public static boolean send( HomeActivity home, Message msg ) {
-		Log.d( "ALERT MUTHAFUCKA", "SCHEDULER.SEND MUTHAFUCKA" );
-		
 		SendMessage call = new SendMessage( home, msg );
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
@@ -73,11 +71,12 @@ public class Scheduler {
 	
 	// Notify Dispatcher that SystemCall has been queued
 	public synchronized static void notifyDispatcher() {
-		Log.d( "ALERT MUTHAFUCKA", "DISPATCHER NOTIFIED MUTHAFUCKA" );
+		if( dispatcher.getState() == Thread.State.TERMINATED ) {
+			dispatcher = new Dispatcher();
+		}
 		
 		if( !dispatcher.isAlive() ) {
 			dispatcher.start();
-			dispatcher = new Dispatcher();
 		}
 	}
 }

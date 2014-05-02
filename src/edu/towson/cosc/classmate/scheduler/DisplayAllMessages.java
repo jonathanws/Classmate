@@ -6,8 +6,7 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 class DisplayAllMessages extends UserCall {
 	
 	public DisplayAllMessages( HomeActivity home ) {
-		super();
-		this.home = home;
+		super( home );
 	}
 	
 	// TODO: Implement
