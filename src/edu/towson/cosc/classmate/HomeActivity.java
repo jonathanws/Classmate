@@ -35,6 +35,7 @@ public class HomeActivity extends ListActivity {
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		
+		
 		setContentView( R.layout.layout_main ); // TODO change me
 		
 		dataAdapter = SystemInterface.openDatabase( this );
@@ -69,7 +70,9 @@ public class HomeActivity extends ListActivity {
 		v_bottomBar = (View) this.findViewById( R.id.bottom_view_bar );
 		
 		v_flipper = (ViewFlipper) this.findViewById( R.id.vf_priority );
+		
 		int[] priorities = { R.drawable.ic_priority_withbox_1, R.drawable.ic_priority_withbox_2, R.drawable.ic_priority_withbox_3 };
+		
 		for( int i = 0; i < priorities.length; i++ ) {
 			ImageView image = new ImageView( getApplicationContext() );
 			image.setBackgroundResource( priorities[i] );
