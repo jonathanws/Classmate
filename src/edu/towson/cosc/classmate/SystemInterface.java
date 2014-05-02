@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 import android.content.Context;
+import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
 import edu.towson.cosc.classmate.invoker.Invoker;
 import edu.towson.cosc.classmate.scheduler.Scheduler;
 
@@ -82,8 +83,8 @@ class SystemInterface {
 	}
 	
 	// Database Method(s)
-	public static void openDatabase( Context ctx ) {
-		Invoker.openDatabase( ctx );
+	public static DatabaseAdapter openDatabase( Context ctx ) {
+		return Invoker.openDatabase( ctx );
 	}
 	
 	public static void closeDatabase() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
 import edu.towson.cosc.classmate.aggregator.Conversation;
+import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
 
 public class Invoker {
 	
@@ -27,8 +28,8 @@ public class Invoker {
 		return (Message) new GetMessage( aggr, index ).execute();
 	}
 	
-	public static void openDatabase( Context ctx ) {
-		aggr.openDatabase( ctx );
+	public static DatabaseAdapter openDatabase( Context ctx ) {
+		return aggr.openDatabase( ctx );
 	}
 	
 	public static void closeDatabase() {
