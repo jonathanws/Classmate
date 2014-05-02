@@ -4,8 +4,4 @@ interface Command {
 	
 	public Object execute();
 	
-	public Object redo();
-	
-	public Object undo();
-	
 }

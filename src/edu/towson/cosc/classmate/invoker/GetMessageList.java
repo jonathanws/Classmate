@@ -15,12 +15,4 @@ class GetMessageList implements Command {
 		return this.list;
 	}
 	
-	public synchronized Object redo() {
-		return null;
-	}
-	
-	public synchronized Object undo() {
-		return null;
-	}
-	
 }

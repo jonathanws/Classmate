@@ -1,5 +1,8 @@
 package edu.towson.cosc.classmate;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * Defines a new Message object. A message is anything that is sent, or
  * received.
@@ -11,12 +14,10 @@ public class Message {
 	private boolean mIsMine; // User = true, some shmoe = false
 	private String mMessage;
 	private String mTimestamp;
-	
-	// Might not include this
-	// Something about how to store IPs in java
-	// http://stackoverflow.com/questions/8677707/datatype-for-storing-ip-addresses-in-java
-	private String mIP;
+	private String mName;	
+	private String mIP; // http://stackoverflow.com/questions/8677707/datatype-for-storing-ip-addresses-in-java
 	private int mPriority;
+	private long mId;
 	
 	public static final int HIGH_PRIORITY = 3;
 	public static final int MEDIUM_PRIORITY = 2;
@@ -76,6 +77,29 @@ public class Message {
 		this.mTimestamp = timestamp;
 	}
 	
+	/**
+	 * Constructor for a new message
+	 * 
+	 * @param isMine
+	 *            Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message
+	 *            Actual string of message
+	 * @param name
+	 *            Name of the person sending the message
+	 * @param ip
+	 *            IP of whomever
+	 * @param priority
+	 *            int designating priority
+	 */
+	public Message (boolean isMine, String message, String name, String ip, int priority) {
+		this.mIsMine = isMine;
+		this.mMessage = message;
+		this.mName = name;
+		this.mIP = ip;
+		this.mPriority = priority;
+		this.mTimestamp = DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
+	}
+	
 	// Getters and Setters
 	
 	/** @return boolean for mIsMine */
@@ -83,9 +107,15 @@ public class Message {
 		return this.mIsMine;
 	}
 	
+	public int intIsMine() {
+		if (mIsMine)
+			return 1;
+		
+		return 0;
+	}
+	
 	/**
-	 * @param status
-	 *            boolean for mIsMine
+	 * @param status boolean for mIsMine
 	 */
 	public void setMine( boolean status ) {
 		this.mIsMine = status;
@@ -97,8 +127,7 @@ public class Message {
 	}
 	
 	/**
-	 * @param mes
-	 *            String for message
+	 * @param mes String for message
 	 */
 	public void setMessage( String mes ) {
 		this.mMessage = mes;
@@ -110,8 +139,7 @@ public class Message {
 	}
 	
 	/**
-	 * @param timestamp
-	 *            String for timestamp
+	 * @param timestamp String for timestamp
 	 */
 	public void setTimestamp( String timestamp ) {
 		this.mTimestamp = timestamp;
@@ -142,5 +170,33 @@ public class Message {
 	public void setPriority( int priority ) {
 		this.mPriority = priority;
 	}
+	
+	/**
+	 * @param name to set
+	 */
+	public void setName(String n) {
+		this.mName = n;
+	}
+	
+	/**
+	 * @return name of sender of message
+	 */
+	public String getName() {
+		return this.mName;
+	}
+	
+	/**
+	 * @param id to set to message
+	 */
+ 	public void setId(long l) {
+ 		this.mId = l;
+ 	}
+ 	
+ 	/**
+ 	 * @return id of message
+ 	 */
+ 	public long getId() {
+ 		return this.mId;
+ 	}
 	
 }

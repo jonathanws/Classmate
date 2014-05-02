@@ -21,13 +21,12 @@ import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+import edu.towson.cosc.classmate.invoker.DatabaseAdapter_Drafts;
 
 public class HomeActivity extends ListActivity {
 	
@@ -42,6 +41,10 @@ public class HomeActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Open Database
+		SystemInterface.openDatabase( this );
+		
 		setContentView(R.layout.layout_main); //TODO change me
 		
 		// Set FIRST_RUN variable to false now
@@ -56,9 +59,9 @@ public class HomeActivity extends ListActivity {
 //		dataAdapter.deleteAllMessages();
 		
 		// Add some sample data
-//		dataAdapter.insertSomeMessages();
+		dataAdapter.insertSomeMessages();
 		
-//		Log.d(Settings.TAG, showTableData());
+//		Log.d("Tag", showTableData());
 		
 //		Toast.makeText(getApplicationContext(), getLocalIpAddress(), Toast.LENGTH_LONG).show();
 		
@@ -115,11 +118,12 @@ public class HomeActivity extends ListActivity {
 		return ssid;
 	}
 	
-	private void displayListView() {
+	public void displayListView() {
 		
-		final ListView listview = getListView();
+		ListView listview = getListView();
 		Cursor c = dataAdapter.selectStar();
 		myCursorAdapter = new MyCursorAdapter(this, c);
+		myCursorAdapter.notifyDataSetChanged();
 		listview.setAdapter(myCursorAdapter);
 		
 //		listview.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -136,7 +140,7 @@ public class HomeActivity extends ListActivity {
 	}
 	
 	// http://stackoverflow.com/a/7032341/1097170
-	private void scrollListViewToBottom() {
+	public void scrollListViewToBottom() {
 	    getListView().post(new Runnable() {
 	        @Override
 	        public void run() {
@@ -174,8 +178,21 @@ public class HomeActivity extends ListActivity {
 	
 	// Called when users wants to send a message
 	public void onSend(View v) {
-		Toast.makeText(getApplicationContext(), "sweet deal", Toast.LENGTH_SHORT).show();
-//		sendMessage();
+		String message = et_message.getText().toString().trim();
+		if (message.length() > 0) {
+			et_message.setText("");
+			
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			String name = prefs.getString(Settings.KEY_NAME, "Default User");
+			
+			Message m = new Message(true, message, name, getLocalIpAddress(), getPriority());
+			
+			SystemInterface.send( this , m);
+			
+			this.displayListView();
+			scrollListViewToBottom();
+		}
+		
 	}
 	
 	// Called when user wants to set the priority of their message
@@ -191,6 +208,15 @@ public class HomeActivity extends ListActivity {
 			v_bottomBar.setBackgroundColor(Color.parseColor("#CC0000"));
 		}
 	}
+	
+	public int getPriority() {
+		if (v_flipper.getDisplayedChild() == 0)
+			return 1;
+		else if (v_flipper.getDisplayedChild() == 1)
+			return 2;
+		else
+			return 3;
+	}
 
 	// Call to initiate a thread (AsyncTask)
 	public void sendMessage() {
@@ -202,9 +228,9 @@ public class HomeActivity extends ListActivity {
 		}
 	}
 	
-	public String getCurrentSystemTime() {
-		return DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
-	}
+//	public String getCurrentSystemTime() {
+//		return DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
+//	}
 	
 	public String getLocalIpAddress() {
 		WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);

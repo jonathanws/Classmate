@@ -1,11 +1,12 @@
 package edu.towson.cosc.classmate.scheduler;
 
+import edu.towson.cosc.classmate.HomeActivity;
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
 class DisplayMessage extends UserCall {
 	
-	DisplayMessage( int index ) {
+	DisplayMessage( HomeActivity home, int index ) {
 		super();
 		this.index = index;
 	}

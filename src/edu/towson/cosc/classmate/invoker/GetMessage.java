@@ -17,11 +17,4 @@ class GetMessage implements Command {
 		return this.list.getMessage( this.index );
 	}
 	
-	public synchronized Object redo() {
-		return null;
-	}
-	
-	public synchronized Object undo() {
-		return null;
-	}
 }

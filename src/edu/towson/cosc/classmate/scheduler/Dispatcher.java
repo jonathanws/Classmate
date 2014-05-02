@@ -3,24 +3,27 @@ package edu.towson.cosc.classmate.scheduler;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.util.Log;
+
 class Dispatcher implements Runnable {
 	
 	private ExecutorService dispatcher = Executors.newSingleThreadExecutor();
 	private Thread runner = new Thread( this, "Dispatcher" );
 	private SystemCall current;
 	
-	public synchronized void run() {
+	public void run() {
 		MultilevelQueue queue = Scheduler.getQueue();
 		
 		while( queue.size() > 0 ) {
 			this.current = queue.nextCommand();
-			
+			Log.d( "ALERT MUTHAFUCKA", "DISPATCHER EXECUTING MUTHAFUCKA" );
 			this.dispatcher.execute( this.current );
 			
 			this.current.join();
 		}
 		
 		this.dispatcher.shutdown();
+		Log.d( "ALERT MUTHAFUCKA", "DISPATCHER SHUTDOWN MUTHAFUCKA" );
 	}
 	
 	synchronized boolean isAlive() {

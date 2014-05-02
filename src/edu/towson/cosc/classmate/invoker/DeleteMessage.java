@@ -1,35 +1,33 @@
 package edu.towson.cosc.classmate.invoker;
 
-import edu.towson.cosc.classmate.Message;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import edu.towson.cosc.classmate.DatabaseConstants;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
 import edu.towson.cosc.classmate.aggregator.Conversation;
 
 class DeleteMessage implements Command {
 	
 	private Conversation list;
-	private final int index;
-	private Message msg;
+	private final long id;
+	private SQLiteDatabase mDb;
 	
-	DeleteMessage( Aggregator aggr, int index ) {
+	DeleteMessage( Aggregator aggr, long id ) {
 		this.list = aggr.getMessages();
-		this.index = index;
+		this.id = id;
+		this.mDb = aggr.getDatabase();
 	}
 	
 	public synchronized Object execute() {
-		this.msg = list.getMessage( this.index );
 		
-		if( this.msg != null ) {
-			this.list.deleteMessage( this.index );
-		}
+		String query = "SELECT " + DatabaseConstants.DATABASE_NAME + " FROM " + DatabaseConstants.TABLE_DRAFTS
+                + " WHERE " + DatabaseConstants.KEY_ROWID + " = " + id;
 		
-		return this.msg;
+		Cursor c = mDb.rawQuery(query, null);
+		
+		mDb.delete(DatabaseConstants.TABLE_DRAFTS, DatabaseConstants.KEY_ROWID + "='" + id + "'", null);
+		
+		return c.getString(c.getColumnIndex(DatabaseConstants.KEY_ISMINE));
 	}
 	
-	public synchronized Object redo() {
-		return null;
-	}
-	
-	public synchronized Object undo() {
-		return null;
-	}
 }
