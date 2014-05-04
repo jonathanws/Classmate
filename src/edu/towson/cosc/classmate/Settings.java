@@ -6,6 +6,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,12 +14,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class Settings extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
 	public static final String PREF = "preference_";
 	
 	public static final String KEY_FIRST_RUN = PREF + "first_run";
+	public static final String KEY_DELETE =    PREF + "delete";
 	public static final String KEY_NAME =      PREF + "name";
 	public static final String KEY_SPLASH =    PREF + "splash";
 	public static final String KEY_THEME =     PREF + "theme";
@@ -58,6 +61,17 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
                 return false;
             }
         });
+        
+        Preference button = (Preference)findPreference(KEY_DELETE);
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        	@Override
+        	public boolean onPreferenceClick(Preference arg0) {
+        		// TODO system call to delete all messages
+        		Toast.makeText(getApplicationContext(), R.string.layout_setting_banhammerdropped, Toast.LENGTH_LONG).show();
+        		return true;
+        	}
+        });
+        
 	}
 
 	@Override

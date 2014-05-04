@@ -1,13 +1,16 @@
 package edu.towson.cosc.classmate;
 
-import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 
 public class MyCursorAdapter extends CursorAdapter {
 	
@@ -71,6 +74,15 @@ public class MyCursorAdapter extends CursorAdapter {
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 		ViewHolder holder = (ViewHolder) view.getTag();
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		
+		if (sp.getBoolean(Settings.KEY_TYPEFACE, false)) {
+			Typeface tf_light = Typeface.createFromAsset(context.getAssets(), "fonts/roboto_thin.ttf");
+			holder.message.setTypeface(tf_light);
+			holder.name.setTypeface(tf_light);
+			holder.timestamp.setTypeface(tf_light);
+		}
+		
 		holder.message.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_MESSAGE)));
 		holder.name.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_NAME)));
 		holder.timestamp.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_TIMESTAMP)));

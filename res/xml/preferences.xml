@@ -9,7 +9,7 @@
         
         <CheckBoxPreference
             android:key="preference_splash"
-            android:title="Splash Screen" />
+            android:title="@string/preference_title_splash" />
         
     </PreferenceCategory>
     
@@ -17,14 +17,19 @@
         
         <EditTextPreference
             android:key="preference_name"
-            android:title="Display Name" />
+            android:title="@string/preference_title_name" />
+        
+        <Preference
+            android:key="preference_delete"
+            android:title="@string/preference_title_delete"
+            android:summary="@string/preference_summary_banhammer" />
         
     </PreferenceCategory>
     
     <PreferenceCategory android:title="Other" >
         
         <edu.towson.cosc.classmate.SuperSecretDeveloperPreference
-            android:title="Version"
+            android:title="@string/preference_title_version"
             android:summary="@string/version" />
             
     </PreferenceCategory>
