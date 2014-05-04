@@ -14,6 +14,7 @@ public class DatabaseAdapter {
 	}
 
 	public void deleteAllMessages() {
+		// TODO check for empty database.  Call if (isDBEmpty())
 		database.delete(DatabaseConstants.TABLE_DRAFTS, null, null);
 		// db.execSQL("delete from " + TABLE_NAME);
 	}

@@ -30,6 +30,8 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	public static final int DARK_THEME = android.R.style.Theme_Holo;
 	public static final int LIGHT_THEME = android.R.style.Theme_Holo_Light;
 	public static int current_theme = DARK_THEME;
+	
+	private static HomeActivity homeActivity;
 
 	@Deprecated
 	@Override
@@ -66,7 +68,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
         	@Override
         	public boolean onPreferenceClick(Preference arg0) {
-        		// TODO system call to delete all messages
+        		SystemInterface.deleteAll(homeActivity);
         		Toast.makeText(getApplicationContext(), R.string.layout_setting_banhammerdropped, Toast.LENGTH_LONG).show();
         		return true;
         	}
@@ -126,27 +128,19 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		cbp_typeface.setChecked(boolean_typeface);
 		etp_name.setSummary(string_name);
 	}
+	
+	public static void setHomeActivity(HomeActivity ha) {
+		homeActivity = ha;
+	}
 
-//	private String capitalizeFirstLetter(String paramString) {
-//		if (paramString.equalsIgnoreCase(""))
-//			return "- - -";
-//		else {
-//			StringBuilder sb = new StringBuilder(paramString);
-//			sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
-//			return sb.toString();
-//		}
-//	}
-
-	// http://stackoverflow.com/questions/11251901/check-whether-database-is-empty
-//	protected boolean isDBEmpty() {
-//		DatabaseListJSONData m_dbListData = new DatabaseListJSONData(this);
-//		SQLiteDatabase db = m_dbListData.getWritableDatabase();
-//		
-//		Cursor cur = db.rawQuery("SELECT * FROM " + DatabaseConstants.TABLE_NAME, null);
-//		if (cur.moveToFirst())
-//			return false;
-//		else
-//			return true;
-//	}
+	private String capitalizeFirstLetter(String paramString) {
+		if (paramString.equalsIgnoreCase(""))
+			return "- - -";
+		else {
+			StringBuilder sb = new StringBuilder(paramString);
+			sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+			return sb.toString();
+		}
+	}
 
 }
