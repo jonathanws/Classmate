@@ -15,8 +15,15 @@ public class Invoker {
 	}
 	
 	public synchronized static Message deleteMessage( int index ) throws IndexOutOfBoundsException {
-		Command action = new DeleteMessage( aggr, index );
-		return (Message) action.execute();
+		return (Message) new DeleteMessage( aggr, index ).execute();
+	}
+	
+	public synchronized static Long deleteAll() {
+		return (Long) new DeleteAll( aggr ).execute();
+	}
+	
+	public synchronized static DatabaseAdapter displayAllMessages() {
+		return (DatabaseAdapter) new DisplayAllMessages( aggr ).execute();
 	}
 	
 	public synchronized static Message getMessage( int index ) throws IndexOutOfBoundsException {

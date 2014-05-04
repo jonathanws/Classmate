@@ -1,6 +1,7 @@
 package edu.towson.cosc.classmate.scheduler;
 
 import edu.towson.cosc.classmate.HomeActivity;
+import edu.towson.cosc.classmate.SystemInterface;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
 class DeleteMessage extends UserCall {
@@ -12,12 +13,8 @@ class DeleteMessage extends UserCall {
 	
 	// TODO: Implement
 	public synchronized void run() {
-		try {
-			Invoker.deleteMessage( this.index );
-			this.updateListView( this.home, "Message Deleted" );
-		} catch( IndexOutOfBoundsException error ) {
-			// Notify the user that the message to delete doesn't exist in memory
-		}
+		Invoker.deleteMessage( this.index );
+		SystemInterface.displayAllMessages( home );
+		home.popToast( "Message Deleted" );
 	}
-	
 }

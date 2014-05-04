@@ -11,6 +11,10 @@ public class Aggregator {
 		return this.database;
 	}
 	
+	public DatabaseAdapter getDatabaseAdapter() {
+		return new DatabaseAdapter( database );
+	}
+	
 	// Setter Method(s)
 	public synchronized DatabaseAdapter openDatabase( Context ctx ) {
 		this.database = new DatabaseHelper( ctx ).getWritableDatabase();

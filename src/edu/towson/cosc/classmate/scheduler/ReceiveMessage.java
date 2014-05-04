@@ -2,6 +2,7 @@ package edu.towson.cosc.classmate.scheduler;
 
 import edu.towson.cosc.classmate.HomeActivity;
 import edu.towson.cosc.classmate.Message;
+import edu.towson.cosc.classmate.SystemInterface;
 import edu.towson.cosc.classmate.invoker.Invoker;
 
 class ReceiveMessage extends NetworkCall {
@@ -14,7 +15,7 @@ class ReceiveMessage extends NetworkCall {
 	// TODO: Implement
 	public synchronized void run() {
 		Invoker.addMessage( this.msg );
-		this.updateListView( this.home, null );
+		SystemInterface.displayAllMessages( home );
 	}
 	
 }

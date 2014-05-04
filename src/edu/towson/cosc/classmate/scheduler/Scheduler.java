@@ -12,6 +12,18 @@ public class Scheduler {
 	// Schedule Methods
 	public static boolean delete( HomeActivity home, int index ) {
 		DeleteMessage call = new DeleteMessage( home, index );
+		
+		if( queue.schedule( call ) ) {
+			notifyDispatcher();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean deleteAll( HomeActivity home ) {
+		DeleteAll call = new DeleteAll( home );
+		
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
 			return true;
@@ -22,6 +34,7 @@ public class Scheduler {
 	
 	public static boolean display( HomeActivity home, int index ) {
 		DisplayMessage call = new DisplayMessage( home, index );
+		
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
 			return true;
@@ -32,6 +45,7 @@ public class Scheduler {
 	
 	public static boolean displayAllMessages( HomeActivity home ) {
 		DisplayAllMessages call = new DisplayAllMessages( home );
+		
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
 			return true;
@@ -42,6 +56,7 @@ public class Scheduler {
 	
 	public static boolean receive( HomeActivity home, Message msg ) {
 		ReceiveMessage call = new ReceiveMessage( home, msg );
+		
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
 			return true;

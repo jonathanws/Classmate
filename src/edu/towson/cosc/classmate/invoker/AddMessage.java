@@ -23,12 +23,8 @@ class AddMessage implements Command {
 	}
 	
 	public synchronized Object execute() {
-		// if( this.list.addMessage( this.msg ) ) {
-		// return this.msg;
-		// }
-		
-		// Do whatever to add to database
 		ContentValues initialValues = new ContentValues();
+		
 		initialValues.put( KEY_MESSAGE, msg.getMessage() );
 		initialValues.put( KEY_TIMESTAMP, msg.getTimestamp() );
 		initialValues.put( KEY_IP_ADDR, msg.getIP() );

@@ -1,6 +1,5 @@
 package edu.towson.cosc.classmate.scheduler;
 
-import edu.towson.cosc.classmate.HomeActivity;
 
 abstract class SystemCall implements Runnable {
 	
@@ -33,21 +32,6 @@ abstract class SystemCall implements Runnable {
 	
 	public void resume() {
 		this.runner.notify();
-	}
-	
-	// User Interface Method(s)
-	public void updateListView( final HomeActivity home, final String str ) {
-		home.runOnUiThread( new Runnable() {
-			
-			public void run() {
-				home.displayListView();
-				
-				if( str != null && !str.equals( "" ) ) {
-					home.popToast( str );
-				}
-			}
-			
-		} );
 	}
 	
 }

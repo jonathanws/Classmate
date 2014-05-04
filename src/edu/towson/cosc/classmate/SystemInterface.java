@@ -9,7 +9,7 @@ import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
 import edu.towson.cosc.classmate.invoker.Invoker;
 import edu.towson.cosc.classmate.scheduler.Scheduler;
 
-class SystemInterface {
+public class SystemInterface {
 	
 	private static Format returnFormat;
 	
@@ -34,6 +34,16 @@ class SystemInterface {
 		}
 		
 		list.add( "Deleting " + count + " Message(s)" );
+		
+		return list.toArray( new String[list.size()] );
+	}
+	
+	public static String[] deleteAll( HomeActivity home ) {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		if( Scheduler.deleteAll( home ) ) {
+			list.add( "Deleting All Messages" );
+		}
 		
 		return list.toArray( new String[list.size()] );
 	}
