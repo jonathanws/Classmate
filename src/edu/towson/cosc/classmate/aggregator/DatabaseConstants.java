@@ -18,6 +18,10 @@ public interface DatabaseConstants extends BaseColumns {
 	public static final String KEY_PRIORITY = "priority";
 	public static final String KEY_ISMINE = "ismine";
 	
+	public static final int PRIORITY_HIGH = 3;
+	public static final int PRIORITY_MEDIUM = 2;
+	public static final int PRIORITY_LOW = 1;
+	
 	public static final String TABLE_DRAFTS_CREATE = 
 			"CREATE TABLE if not exists " + TABLE_DRAFTS + " ("
 					+ KEY_ROWID + " integer PRIMARY KEY autoincrement, "

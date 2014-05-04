@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class MyCursorAdapter extends CursorAdapter {
 	
+	private static final int NUM_LAYOUTS = 7;
 	private LayoutInflater mInflater;
 	private Cursor c;
 	
@@ -19,6 +20,53 @@ public class MyCursorAdapter extends CursorAdapter {
 		mInflater = LayoutInflater.from(ctx);
 		c = cur;
 	}
+	
+	@Override
+	public int getViewTypeCount() {
+		return NUM_LAYOUTS;
+	}
+	
+	@Override
+	public int getItemViewType(int pos) {
+		Cursor cursor = (Cursor) getItem(pos);
+		return getItemViewType(cursor);
+	}
+	
+	private int getItemViewType(Cursor cursor) {
+        int type = 1;
+        
+        // type is used internally by the system, where it saves a cache
+        
+        // Messages sent by me
+        if ((cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ISMINE)).equals("1")) &&
+				(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)) + "").equals("1")) {
+			type = 1;
+			
+		} else if ((cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ISMINE)).equals("1")) &&
+				(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)) + "").equals("2")) {
+			type = 2;
+			
+		} else if ((cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ISMINE)).equals("1")) &&
+					(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)) + "").equals("3")) {
+			type = 3;
+			
+		// Messages sent by somebody else
+		} else if ((cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ISMINE)).equals("0")) &&
+				(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)) + "").equals("1")) {
+			type = 4;
+			
+		} else if ((cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ISMINE)).equals("0")) &&
+				(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)) + "").equals("2")) {
+			type = 5;
+			
+		} else if ((cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ISMINE)).equals("0")) &&
+				(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)) + "").equals("3")) {
+			type = 6;
+		}
+        
+        return type;
+        
+    }
 	
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
