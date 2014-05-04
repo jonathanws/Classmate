@@ -31,6 +31,6 @@ public interface DatabaseConstants extends BaseColumns {
 					+ KEY_PRIORITY + ", "
 					+ KEY_ISMINE + ", "
 					+ KEY_NAME + ", "
-					+ " UNIQUE (" + KEY_MESSAGE + ", " + KEY_TIMESTAMP + "));";
+					+ " UNIQUE (" + KEY_ROWID + "));";
 
 }

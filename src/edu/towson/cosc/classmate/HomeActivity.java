@@ -16,12 +16,15 @@ import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
+import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 
 public class HomeActivity extends ListActivity {
 
@@ -39,6 +42,23 @@ public class HomeActivity extends ListActivity {
 
 		SystemInterface.openDatabase(this);
 		Settings.setHomeActivity(this);
+		
+//		SystemInterface.deleteAll(this);
+		
+		SystemInterface.send(this, new Message(true, "lol", "Jon", "123", DatabaseConstants.PRIORITY_HIGH));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		SystemInterface.send(this, new Message(false, "lol", "Brian", "124", DatabaseConstants.PRIORITY_MEDIUM));
+		
 
 		// Set FIRST_RUN variable to false now
 		setFirstRunToFalse();
@@ -75,6 +95,13 @@ public class HomeActivity extends ListActivity {
 			image.setBackgroundResource(priorities[i]);
 			v_flipper.addView(image);
 		}
+		
+		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+				Toast.makeText(getApplicationContext(), "sweet deal", Toast.LENGTH_SHORT).show();
+				return true;
+            }
+        }); 
 
 	}
 
