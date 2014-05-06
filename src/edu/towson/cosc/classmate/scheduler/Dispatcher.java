@@ -1,12 +1,9 @@
 package edu.towson.cosc.classmate.scheduler;
 
 import java.lang.Thread.State;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 class Dispatcher implements Runnable {
 	
-	private ExecutorService dispatcher = Executors.newSingleThreadExecutor();
 	private Thread runner = new Thread( this, "Dispatcher" );
 	private SystemCall current;
 	
@@ -15,34 +12,48 @@ class Dispatcher implements Runnable {
 		
 		while( queue.size() > 0 ) {
 			this.current = queue.nextCommand();
+			this.current.start();
 			
-			this.dispatcher.execute( this.current );
-			
-			this.current.join();
+			try {
+				this.current.join();
+			} catch( InterruptedException error ) {
+				error.printStackTrace();
+			}
 		}
 		
-		this.dispatcher.shutdown();
+		this.current = null;
 	}
 	
-	synchronized boolean isAlive() {
-		return runner.isAlive();
+	boolean isAlive() {
+		return this.runner.isAlive();
 	}
 	
 	// For "fun" method (can implement if bored)
-	synchronized void preempt( SystemCall task ) {
+	void preempt( SystemCall task ) {
 		if( this.runner.isAlive() ) {
-			this.dispatcher.execute( task ); // Not sure if this will work
+			SystemCall waiting = current;
+			try {
+				waiting.wait();
+				current = task;
+				current.start();
+				current.join();
+				waiting.notify();
+			} catch( InterruptedException error ) {
+				error.printStackTrace();
+			}
 		}
+		
+		this.current = null;
 	}
 	
-	synchronized void join() {
+	void join() {
 		try {
 			this.runner.join();
 		} catch( InterruptedException error ) {
 		}
 	}
 	
-	synchronized void start() {
+	void start() {
 		try {
 			this.runner.start();
 		} catch( IllegalMonitorStateException error ) {

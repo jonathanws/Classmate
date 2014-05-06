@@ -7,7 +7,7 @@ public class Aggregator {
 	
 	private SQLiteDatabase database;
 	
-	public synchronized SQLiteDatabase getDatabase() {
+	public SQLiteDatabase getDatabase() {
 		return this.database;
 	}
 	
@@ -16,7 +16,7 @@ public class Aggregator {
 	}
 	
 	// Setter Method(s)
-	public synchronized DatabaseAdapter openDatabase( Context ctx ) {
+	public DatabaseAdapter openDatabase( Context ctx ) {
 		this.database = new DatabaseHelper( ctx ).getWritableDatabase();
 		return new DatabaseAdapter( this.database );
 	}

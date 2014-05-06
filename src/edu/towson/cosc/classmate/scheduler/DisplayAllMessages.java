@@ -11,13 +11,7 @@ class DisplayAllMessages extends UserCall {
 	
 	// TODO: Implement
 	public void run() {
-		home.runOnUiThread( new Runnable() {
-			
-			public void run() {
-				home.displayListView( Invoker.displayAllMessages() );
-			}
-			
-		} );
+		home.displayListView( Invoker.displayAllMessages() );
 	}
 	
 }

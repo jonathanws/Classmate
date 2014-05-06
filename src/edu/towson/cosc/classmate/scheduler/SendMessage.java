@@ -13,11 +13,10 @@ class SendMessage extends NetworkCall {
 	}
 	
 	// TODO: Implement
-	public synchronized void run() {
+	public void run() {
 		Invoker.addMessage( this.msg );
 		SystemInterface.displayAllMessages( home );
 		home.popToast( "Message Sent" );
-		
 	}
 	
 }

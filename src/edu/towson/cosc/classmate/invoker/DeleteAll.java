@@ -12,9 +12,9 @@ class DeleteAll implements Command {
 	}
 	
 	public Object execute() {
-		long count = adapter.getNumEntries();
+		long count = this.adapter.getNumEntries();
 		
-		adapter.deleteAllMessages();
+		this.adapter.deleteAllMessages();
 		
 		return Long.valueOf( count );
 	}

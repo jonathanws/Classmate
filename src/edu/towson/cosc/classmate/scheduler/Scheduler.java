@@ -54,7 +54,7 @@ public class Scheduler {
 		return false;
 	}
 	
-	public static boolean receive( HomeActivity home, Message msg ) {
+	public synchronized static boolean receive( HomeActivity home, Message msg ) {
 		ReceiveMessage call = new ReceiveMessage( home, msg );
 		
 		if( queue.schedule( call ) ) {
@@ -65,7 +65,7 @@ public class Scheduler {
 		return false;
 	}
 	
-	public static boolean send( HomeActivity home, Message msg ) {
+	public synchronized static boolean send( HomeActivity home, Message msg ) {
 		SendMessage call = new SendMessage( home, msg );
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
