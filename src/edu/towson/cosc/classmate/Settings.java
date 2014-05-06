@@ -125,7 +125,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		// Set Summaries
 		cbp_splash.setChecked(boolean_splash);
 		cbp_typeface.setChecked(boolean_typeface);
-		etp_name.setSummary(string_name);
+		etp_name.setSummary(capitalizeFirstLetter(string_name));
 	}
 
 	public static void setHomeActivity(HomeActivity home) {

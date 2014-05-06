@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
+import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 
 public class HomeActivity extends ListActivity {
 
@@ -67,7 +68,6 @@ public class HomeActivity extends ListActivity {
 	protected void init() {
 		et_message = (EditText) this.findViewById(R.id.et_text);
 		v_bottomBar = (View) this.findViewById(R.id.bottom_view_bar);
-
 		v_flipper = (ViewFlipper) this.findViewById(R.id.vf_priority);
 
 		int[] priorities = { R.drawable.ic_priority_withbox_1, R.drawable.ic_priority_withbox_2, R.drawable.ic_priority_withbox_3 };
@@ -80,7 +80,7 @@ public class HomeActivity extends ListActivity {
 		
 		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
-				Toast.makeText(getApplicationContext(), "sweet deal", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "sweet deal, " + pos, Toast.LENGTH_SHORT).show();
 				return true;
             }
         }); 

@@ -14,7 +14,7 @@ import edu.towson.cosc.classmate.aggregator.DatabaseConstants;
 
 public class MyCursorAdapter extends CursorAdapter {
 	
-	private static final int NUM_LAYOUTS = 7;
+	private static final int NUM_LAYOUTS = 6;
 	private LayoutInflater mInflater;
 	private Cursor c;
 	
@@ -26,7 +26,7 @@ public class MyCursorAdapter extends CursorAdapter {
 	
 	@Override
 	public int getViewTypeCount() {
-		return NUM_LAYOUTS;
+		return NUM_LAYOUTS + 1;
 	}
 	
 	@Override
