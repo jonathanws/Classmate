@@ -14,8 +14,8 @@ public class Invoker {
 		return (Message) new AddMessage( aggr, msg ).execute();
 	}
 	
-	public static Message deleteMessage( int index ) throws IndexOutOfBoundsException {
-		return (Message) new DeleteMessage( aggr, index ).execute();
+	public static Message deleteMessage( long id ) throws IndexOutOfBoundsException {
+		return (Message) new DeleteMessage( aggr, id ).execute();
 	}
 	
 	public static Long deleteAll() {
@@ -26,8 +26,8 @@ public class Invoker {
 		return (DatabaseAdapter) new DisplayAllMessages( aggr ).execute();
 	}
 	
-	public static Message getMessage( int index ) throws IndexOutOfBoundsException {
-		return (Message) new GetMessage( aggr, index ).execute();
+	public static Message getMessage( long id ) throws IndexOutOfBoundsException {
+		return (Message) new GetMessage( aggr, id ).execute();
 	}
 	
 	// Database Method(s)

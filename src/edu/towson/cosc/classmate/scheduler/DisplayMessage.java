@@ -6,13 +6,13 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 
 class DisplayMessage extends UserCall {
 	
-	DisplayMessage( HomeActivity home, int index ) {
+	DisplayMessage( HomeActivity home, long id ) {
 		super( home );
-		this.index = index;
+		this.id = id;
 	}
 	
 	// TODO: Implement
 	public synchronized void run() {
-		Message msg = Invoker.getMessage( this.index );
+		Message msg = Invoker.getMessage( this.id );
 	}
 }

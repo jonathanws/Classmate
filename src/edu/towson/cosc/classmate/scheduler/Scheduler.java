@@ -9,8 +9,8 @@ public class Scheduler {
 	private static MultilevelQueue queue = new MultilevelQueue();
 	
 	// Schedule Methods
-	public static boolean delete( HomeActivity home, int index ) {
-		DeleteMessage call = new DeleteMessage( home, index );
+	public static boolean delete( HomeActivity home, long id ) {
+		DeleteMessage call = new DeleteMessage( home, id );
 		
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
@@ -31,8 +31,8 @@ public class Scheduler {
 		return false;
 	}
 	
-	public static boolean display( HomeActivity home, int index ) {
-		DisplayMessage call = new DisplayMessage( home, index );
+	public static boolean display( HomeActivity home, long id ) {
+		DisplayMessage call = new DisplayMessage( home, id );
 		
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();

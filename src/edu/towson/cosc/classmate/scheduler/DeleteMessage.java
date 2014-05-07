@@ -6,14 +6,14 @@ import edu.towson.cosc.classmate.invoker.Invoker;
 
 class DeleteMessage extends UserCall {
 	
-	DeleteMessage( HomeActivity home, int index ) {
+	DeleteMessage( HomeActivity home, long id ) {
 		super( home );
-		this.index = index;
+		this.id = id;
 	}
 	
 	// TODO: Implement
 	public synchronized void run() {
-		Invoker.deleteMessage( this.index );
+		Invoker.deleteMessage( this.id );
 		SystemInterface.displayAllMessages( home );
 		home.popToast( "Message Deleted" );
 	}

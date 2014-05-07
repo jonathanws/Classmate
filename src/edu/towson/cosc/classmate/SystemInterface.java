@@ -13,22 +13,22 @@ public class SystemInterface {
 	
 	private static Format returnFormat;
 	
-	public static String[] delete( HomeActivity home, int index ) {
+	public static String[] delete( HomeActivity home, long id ) {
 		ArrayList<String> list = new ArrayList<String>();
 		
-		if( Scheduler.delete( home, index ) ) {
+		if( Scheduler.delete( home, id ) ) {
 			list.add( "Deleting Message" );
 		}
 		
 		return list.toArray( new String[list.size()] );
 	}
 	
-	public static String[] delete( HomeActivity home, Queue<Integer> msgs ) {
+	public static String[] delete( HomeActivity home, Queue<Message> msgs ) {
 		ArrayList<String> list = new ArrayList<String>();
 		int count = 0;
 		
-		for( int index : msgs ) {
-			if( Scheduler.delete( home, index ) ) {
+		for( Message msg : msgs ) {
+			if( Scheduler.delete( home, msg.getId() ) ) {
 				count++;
 			}
 		}
@@ -48,10 +48,10 @@ public class SystemInterface {
 		return list.toArray( new String[list.size()] );
 	}
 	
-	public static String[] displayMessage( HomeActivity home, int index ) {
+	public static String[] displayMessage( HomeActivity home, long id ) {
 		ArrayList<String> list = new ArrayList<String>();
 		
-		if( Scheduler.display( home, index ) ) {
+		if( Scheduler.display( home, id ) ) {
 			list.add( "Loading Message" );
 		}
 		

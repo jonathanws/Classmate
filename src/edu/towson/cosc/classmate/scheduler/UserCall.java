@@ -5,7 +5,7 @@ import edu.towson.cosc.classmate.HomeActivity;
 abstract class UserCall extends SystemCall {
 	
 	// TODO: private MessagesThread caller;
-	protected int index;
+	protected long id;
 	protected HomeActivity home;
 	
 	public UserCall( HomeActivity home ) {
