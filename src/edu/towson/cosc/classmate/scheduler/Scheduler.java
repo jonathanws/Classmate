@@ -6,7 +6,6 @@ import edu.towson.cosc.classmate.Message;
 public class Scheduler {
 	
 	private static Dispatcher dispatcher = new Dispatcher();
-	
 	private static MultilevelQueue queue = new MultilevelQueue();
 	
 	// Schedule Methods

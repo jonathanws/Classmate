@@ -32,6 +32,8 @@ public class HomeActivity extends ListActivity {
 	
 	private MyCursorAdapter cursorAdapter;
 	
+	private NetworkThread connection = new NetworkThread( this );
+	
 	@Override
 	protected synchronized void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
@@ -44,6 +46,8 @@ public class HomeActivity extends ListActivity {
 		// Set FIRST_RUN variable to false now
 		setFirstRunToFalse();
 		init();
+		
+		this.connection.start();
 		
 		scrollListViewToBottom();
 	}
@@ -186,6 +190,10 @@ public class HomeActivity extends ListActivity {
 			scrollListViewToBottom();
 		}
 		
+	}
+	
+	public NetworkThread getConnection() {
+		return this.connection;
 	}
 	
 	// TOASTS
