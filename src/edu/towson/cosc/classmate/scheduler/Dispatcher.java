@@ -2,6 +2,8 @@ package edu.towson.cosc.classmate.scheduler;
 
 import java.lang.Thread.State;
 
+import android.util.Log;
+
 class Dispatcher implements Runnable {
 	
 	private Thread runner = new Thread( this, "Dispatcher" );
@@ -60,7 +62,9 @@ class Dispatcher implements Runnable {
 		try {
 			this.runner.start();
 		} catch( IllegalMonitorStateException error ) {
+			Log.d( "DISPATCHER", "START IllegalMonitorState" );
 		} catch( IllegalThreadStateException error ) {
+			Log.d( "DISPATCHER", "START IllegalThreadState" );
 		}
 	}
 	

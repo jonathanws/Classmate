@@ -4,8 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * Defines a new Message object. A message is anything that is sent, or
- * received.
+ * Defines a new Message object. A message is anything that is sent, or received.
  * 
  * @author jonathanws
  */
@@ -14,7 +13,7 @@ public class Message {
 	private boolean mIsMine; // User = true, some shmoe = false
 	private String mMessage;
 	private String mTimestamp;
-	private String mName;	
+	private String mName;
 	private String mIP; // http://stackoverflow.com/questions/8677707/datatype-for-storing-ip-addresses-in-java
 	private int mPriority;
 	private long mId;
@@ -28,10 +27,8 @@ public class Message {
 	/**
 	 * Constructor for a new message
 	 * 
-	 * @param isMine
-	 *            Ownership of message. Either user(true) or some shmoe(false)
-	 * @param message
-	 *            Actual string of message
+	 * @param isMine Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message Actual string of message
 	 */
 	public Message( boolean isMine, String message ) {
 		this.mIsMine = isMine;
@@ -42,33 +39,25 @@ public class Message {
 	/**
 	 * Constructor for a new message
 	 * 
-	 * @param isMine
-	 *            Ownership of message. Either user(true) or some shmoe(false)
-	 * @param message
-	 *            Actual string of message
-	 * @param ip
-	 *            IP of whomever
-	 * @param priority
-	 *            priority of message
+	 * @param isMine Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message Actual string of message
+	 * @param name Name of the sender
+	 * @param priority priority of message
 	 */
-	public Message( boolean isMine, String message, String ip, int priority ) {
+	public Message( boolean isMine, String message, String name, int priority ) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
-		this.mIP = ip;
+		this.mName = name;
 		this.mPriority = priority;
 	}
 	
 	/**
 	 * Constructor for a new message
 	 * 
-	 * @param isMine
-	 *            Ownership of message. Either user(true) or some shmoe(false)
-	 * @param message
-	 *            Actual string of message
-	 * @param ip
-	 *            IP of whomever
-	 * @param timestamp
-	 *            Date and time message was initialized.
+	 * @param isMine Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message Actual string of message
+	 * @param ip IP of whomever
+	 * @param timestamp Date and time message was initialized.
 	 */
 	public Message( boolean isMine, String message, String ip, String timestamp ) {
 		this.mIsMine = isMine;
@@ -80,24 +69,19 @@ public class Message {
 	/**
 	 * Constructor for a new message
 	 * 
-	 * @param isMine
-	 *            Ownership of message. Either user(true) or some shmoe(false)
-	 * @param message
-	 *            Actual string of message
-	 * @param name
-	 *            Name of the person sending the message
-	 * @param ip
-	 *            IP of whomever
-	 * @param priority
-	 *            int designating priority
+	 * @param isMine Ownership of message. Either user(true) or some shmoe(false)
+	 * @param message Actual string of message
+	 * @param name Name of the person sending the message
+	 * @param ip IP of whomever
+	 * @param priority int designating priority
 	 */
-	public Message (boolean isMine, String message, String name, String ip, int priority) {
+	public Message( boolean isMine, String message, String name, String ip, int priority ) {
 		this.mIsMine = isMine;
 		this.mMessage = message;
 		this.mName = name;
 		this.mIP = ip;
 		this.mPriority = priority;
-		this.mTimestamp = DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
+		this.mTimestamp = DateFormat.getTimeInstance( DateFormat.SHORT ).format( new Date() );
 	}
 	
 	// Getters and Setters
@@ -108,7 +92,7 @@ public class Message {
 	}
 	
 	public int intIsMine() {
-		if (mIsMine)
+		if( mIsMine )
 			return 1;
 		
 		return 0;
@@ -151,8 +135,7 @@ public class Message {
 	}
 	
 	/**
-	 * @param ip
-	 *            int for IP address
+	 * @param ip int for IP address
 	 */
 	public void setIP( String ip ) {
 		this.mIP = ip;
@@ -164,8 +147,7 @@ public class Message {
 	}
 	
 	/**
-	 * @param priority
-	 *            must be one of three constant values
+	 * @param priority must be one of three constant values
 	 */
 	public void setPriority( int priority ) {
 		this.mPriority = priority;
@@ -174,7 +156,7 @@ public class Message {
 	/**
 	 * @param name to set
 	 */
-	public void setName(String n) {
+	public void setName( String n ) {
 		this.mName = n;
 	}
 	
@@ -188,15 +170,15 @@ public class Message {
 	/**
 	 * @param id to set to message
 	 */
- 	public void setId(long l) {
- 		this.mId = l;
- 	}
- 	
- 	/**
- 	 * @return id of message
- 	 */
- 	public long getId() {
- 		return this.mId;
- 	}
+	public void setId( long l ) {
+		this.mId = l;
+	}
+	
+	/**
+	 * @return id of message
+	 */
+	public long getId() {
+		return this.mId;
+	}
 	
 }

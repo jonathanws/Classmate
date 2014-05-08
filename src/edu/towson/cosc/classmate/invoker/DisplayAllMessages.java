@@ -11,7 +11,7 @@ class DisplayAllMessages implements Command {
 		this.adapter = aggr.getDatabaseAdapter();
 	}
 	
-	public synchronized Object execute() {
+	public Object execute() {
 		return this.adapter;
 	}
 	

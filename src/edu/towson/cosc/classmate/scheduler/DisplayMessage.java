@@ -12,7 +12,7 @@ class DisplayMessage extends UserCall {
 	}
 	
 	// TODO: Implement
-	public synchronized void run() {
+	public void run() {
 		Message msg = Invoker.getMessage( this, this.id );
 	}
 }

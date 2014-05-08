@@ -15,7 +15,7 @@ class GetMessage implements Command {
 		this.id = id;
 	}
 	
-	public synchronized Object execute() {
+	public Object execute() {
 		return null;
 	}
 	

@@ -12,7 +12,7 @@ class DeleteMessage extends UserCall {
 	}
 	
 	// TODO: Implement
-	public synchronized void run() {
+	public void run() {
 		Invoker.deleteMessage( this, this.id );
 		SystemInterface.displayAllMessages( home );
 		home.popToast( "Message Deleted" );

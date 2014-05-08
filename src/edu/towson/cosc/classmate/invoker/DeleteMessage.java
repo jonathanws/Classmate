@@ -17,9 +17,8 @@ class DeleteMessage implements Command {
 	}
 	
 	public Object execute() {
-		
-		Aggregator.request( thread );
-		adapter.deleteMessageById(id);
+		Aggregator.request( this.thread );
+		this.adapter.deleteMessageById( this.id );
 		Aggregator.signal();
 		
 		return null;

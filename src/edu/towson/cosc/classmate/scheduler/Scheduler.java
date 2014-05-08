@@ -53,7 +53,7 @@ public class Scheduler {
 		return false;
 	}
 	
-	public synchronized static boolean receive( HomeActivity home, Message msg ) {
+	public static boolean receive( HomeActivity home, Message msg ) {
 		ReceiveMessage call = new ReceiveMessage( home, msg );
 		
 		if( queue.schedule( call ) ) {
@@ -64,7 +64,7 @@ public class Scheduler {
 		return false;
 	}
 	
-	public synchronized static boolean send( HomeActivity home, Message msg ) {
+	public static boolean send( HomeActivity home, Message msg ) {
 		SendMessage call = new SendMessage( home, msg );
 		if( queue.schedule( call ) ) {
 			notifyDispatcher();
@@ -75,11 +75,11 @@ public class Scheduler {
 	}
 	
 	// Getter Method(s)
-	public synchronized static MultilevelQueue getQueue() {
+	public static MultilevelQueue getQueue() {
 		return Scheduler.queue;
 	}
 	
-	public synchronized static Dispatcher getDispatcher() {
+	public static Dispatcher getDispatcher() {
 		return Scheduler.dispatcher;
 	}
 	
