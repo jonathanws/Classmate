@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxLength="160"
+            android:inputType="textCapSentences"
             android:hint="@string/layout_homeactivity_write_message"
             android:textColor="@android:color/black" />
 
