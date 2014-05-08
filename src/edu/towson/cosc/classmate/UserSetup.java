@@ -32,7 +32,6 @@ public class UserSetup extends Activity {
 			startActivity(mainIntent);
 			finish();
 		} //else
-//					showDialog(EMAIL); // Calls onCreateDialog()
 	}
 	
 	protected void init() {
@@ -60,7 +59,6 @@ public class UserSetup extends Activity {
 	}
 	
 	protected void submit() {
-		Toast.makeText(getApplicationContext(), "submitted", Toast.LENGTH_SHORT).show();
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		Editor ed = sp.edit();
 		
@@ -70,7 +68,6 @@ public class UserSetup extends Activity {
 	
 	// Yes button was pushed
 	public void yesButton(View v) {
-		Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
 		if (hasText()) {
 			// Write name to memory, and take me to the main screen
 			submit();
@@ -83,7 +80,6 @@ public class UserSetup extends Activity {
 	
 	// No button was pushed
 	public void noButton(View v) {
-		Toast.makeText(getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
 		// Just take me to the main screen
 		Intent mainIntent = new Intent(this, HomeActivity.class);
 		mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

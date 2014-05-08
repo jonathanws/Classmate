@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="left"
     android:orientation="vertical"
+    android:paddingRight="60dp"
     android:paddingTop="8dp" >
 
     <LinearLayout
