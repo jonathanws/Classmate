@@ -11,18 +11,21 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
+import edu.towson.cosc.classmate.scheduler.SystemCall;
 
 class AddMessage implements Command {
 	
-	private final Message msg;
 	private SQLiteDatabase mDb;
+	private final Message msg;
+	private SystemCall thread;
 	
-	AddMessage( Aggregator aggr, Message msg ) {
-		this.msg = msg;
+	AddMessage( Aggregator aggr, SystemCall thread, Message msg ) {
 		this.mDb = aggr.getDatabase();
+		this.msg = msg;
+		this.thread = thread;
 	}
 	
-	public synchronized Object execute() {
+	public Object execute() {
 		ContentValues initialValues = new ContentValues();
 		
 		initialValues.put( KEY_MESSAGE, msg.getMessage() );
@@ -32,11 +35,13 @@ class AddMessage implements Command {
 		initialValues.put( KEY_PRIORITY, msg.getPriority() );
 		initialValues.put( KEY_ISMINE, msg.intIsMine() );
 		
-		long id = mDb.insert( TABLE_DRAFTS, null, initialValues );
+		Aggregator.request( thread );
+		long id = this.mDb.insert( TABLE_DRAFTS, null, initialValues );
+		Aggregator.signal();
 		
 		if( id != -1 ) {
-			msg.setId( id );
-			return msg;
+			this.msg.setId( id );
+			return this.msg;
 		}
 		
 		return null;

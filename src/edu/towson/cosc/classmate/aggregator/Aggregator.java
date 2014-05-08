@@ -1,11 +1,18 @@
 package edu.towson.cosc.classmate.aggregator;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import edu.towson.cosc.classmate.scheduler.SystemCall;
 
 public class Aggregator {
 	
 	private SQLiteDatabase database;
+	
+	private static BlockingQueue<SystemCall> waiting = new LinkedBlockingQueue<SystemCall>();
+	private static int count = 0;
 	
 	public SQLiteDatabase getDatabase() {
 		return this.database;
@@ -25,4 +32,19 @@ public class Aggregator {
 		// TODO: Code to close database!!
 	}
 	
+	// Mutual Exclusion Method(s)
+	public static synchronized void request( SystemCall thread ) {
+		if( count > 0 ) {
+			waiting.add( thread );
+		}
+		
+		count++;
+	}
+	
+	public static synchronized void signal() {
+		if( waiting.size() > 0 ) {
+			waiting.poll();
+			count--;
+		}
+	}
 }

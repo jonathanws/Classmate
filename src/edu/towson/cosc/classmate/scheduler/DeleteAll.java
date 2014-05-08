@@ -11,7 +11,7 @@ public class DeleteAll extends UserCall {
 	}
 	
 	public void run() {
-		long count = Invoker.deleteAll();
+		long count = Invoker.deleteAll( this );
 		
 		SystemInterface.displayAllMessages( this.home );
 		this.home.popToast( count + " Messages Deleted" );

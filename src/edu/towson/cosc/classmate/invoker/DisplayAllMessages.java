@@ -7,7 +7,7 @@ class DisplayAllMessages implements Command {
 	
 	private DatabaseAdapter adapter;
 	
-	DisplayAllMessages( Aggregator aggr ) {
+	DisplayAllMessages( Aggregator aggr, Runnable thread ) {
 		this.adapter = aggr.getDatabaseAdapter();
 	}
 	

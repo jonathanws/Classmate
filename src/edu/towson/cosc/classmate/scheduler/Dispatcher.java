@@ -31,12 +31,15 @@ class Dispatcher implements Runnable {
 	// For "fun" method (can implement if bored)
 	void preempt( SystemCall task ) {
 		if( this.runner.isAlive() ) {
-			SystemCall waiting = current;
+			SystemCall waiting = this.current;
+			
 			try {
 				waiting.wait();
-				current = task;
-				current.start();
-				current.join();
+				
+				this.current = task;
+				this.current.start();
+				this.current.join();
+				
 				waiting.notify();
 			} catch( InterruptedException error ) {
 				error.printStackTrace();

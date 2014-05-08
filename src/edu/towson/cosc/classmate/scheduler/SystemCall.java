@@ -1,11 +1,11 @@
 package edu.towson.cosc.classmate.scheduler;
 
-abstract class SystemCall implements Runnable {
+public abstract class SystemCall implements Runnable {
 	
 	private Thread runner;
 	
 	// Constructor Method(s)
-	public SystemCall() {
+	SystemCall() {
 		this.runner = new Thread( this );
 	}
 	
@@ -13,11 +13,11 @@ abstract class SystemCall implements Runnable {
 	public abstract void run();
 	
 	// Thread Method(s)
-	public void join() throws InterruptedException {
+	void join() throws InterruptedException {
 		this.runner.join();
 	}
 	
-	public void start() {
+	void start() {
 		this.runner.start();
 	}
 	

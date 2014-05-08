@@ -4,30 +4,31 @@ import android.content.Context;
 import edu.towson.cosc.classmate.Message;
 import edu.towson.cosc.classmate.aggregator.Aggregator;
 import edu.towson.cosc.classmate.aggregator.DatabaseAdapter;
+import edu.towson.cosc.classmate.scheduler.SystemCall;
 
 public class Invoker {
 	
 	private static Aggregator aggr = new Aggregator();
 	
 	// Invoker commands for accessing the Aggregator
-	public static Message addMessage( Message msg ) {
-		return (Message) new AddMessage( aggr, msg ).execute();
+	public static Message addMessage( SystemCall thread, Message msg ) {
+		return (Message) new AddMessage( aggr, thread, msg ).execute();
 	}
 	
-	public static Message deleteMessage( long id ) throws IndexOutOfBoundsException {
-		return (Message) new DeleteMessage( aggr, id ).execute();
+	public static Message deleteMessage( SystemCall thread, long id ) throws IndexOutOfBoundsException {
+		return (Message) new DeleteMessage( aggr, thread, id ).execute();
 	}
 	
-	public static Long deleteAll() {
-		return (Long) new DeleteAll( aggr ).execute();
+	public static Long deleteAll( SystemCall thread ) {
+		return (Long) new DeleteAll( aggr, thread ).execute();
 	}
 	
-	public static DatabaseAdapter displayAllMessages() {
-		return (DatabaseAdapter) new DisplayAllMessages( aggr ).execute();
+	public static DatabaseAdapter displayAllMessages( Runnable thread ) {
+		return (DatabaseAdapter) new DisplayAllMessages( aggr, thread ).execute();
 	}
 	
-	public static Message getMessage( long id ) throws IndexOutOfBoundsException {
-		return (Message) new GetMessage( aggr, id ).execute();
+	public static Message getMessage( Runnable thread, long id ) throws IndexOutOfBoundsException {
+		return (Message) new GetMessage( aggr, thread, id ).execute();
 	}
 	
 	// Database Method(s)

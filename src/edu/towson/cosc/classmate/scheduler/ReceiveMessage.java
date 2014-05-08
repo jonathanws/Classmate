@@ -14,7 +14,7 @@ class ReceiveMessage extends NetworkCall {
 	
 	// TODO: Implement
 	public void run() {
-		Invoker.addMessage( this.msg );
+		Invoker.addMessage( this, this.msg );
 		SystemInterface.displayAllMessages( home );
 	}
 	
