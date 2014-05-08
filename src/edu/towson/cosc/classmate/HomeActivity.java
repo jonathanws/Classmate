@@ -52,6 +52,7 @@ public class HomeActivity extends ListActivity {
 
 		SystemInterface.openDatabase(this);
 		Settings.setHomeActivity(this);
+		TestCases.setHomeActivity(this);
 
 		// Set FIRST_RUN variable to false now
 		setFirstRunToFalse();
@@ -309,7 +310,7 @@ public class HomeActivity extends ListActivity {
 			
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			boolean b = prefs.getBoolean(Settings.KEY_TOGGLE, Settings.MODE_SEND);
-			String name = prefs.getString(Settings.KEY_NAME, "Default User");
+			String name = prefs.getString(Settings.KEY_NAME, "Slartibartfast");
 			
 			if (b) { // Sending
 				Message m = new Message(true, message, name, getLocalIpAddress(), getPriority());

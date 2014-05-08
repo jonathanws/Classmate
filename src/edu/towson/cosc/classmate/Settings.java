@@ -8,6 +8,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,13 +23,16 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	public static final boolean MODE_RECEIVE = false;
 	public static final String PREF = "preference_";
 
-	public static final String KEY_FIRST_RUN = PREF + "first_run";
-	public static final String KEY_DELETE =    PREF + "delete";
-	public static final String KEY_NAME =      PREF + "name";
-	public static final String KEY_SPLASH =    PREF + "splash";
-	public static final String KEY_THEME =     PREF + "theme";
-	public static final String KEY_TOGGLE =    PREF + "toggle";
-	public static final String KEY_TYPEFACE =  PREF + "typeface";
+	public static final String KEY_FIRST_RUN =  PREF + "first_run";
+	public static final String KEY_DELETE =     PREF + "delete";
+	public static final String KEY_FINALTEST =  PREF + "finaltestcase";
+	public static final String KEY_NAME =       PREF + "name";
+	public static final String KEY_PRIORITY =   PREF + "priority";
+	public static final String KEY_SCHEDULING = PREF + "scheduling";
+	public static final String KEY_SPLASH =     PREF + "splash";
+	public static final String KEY_THEME =      PREF + "theme";
+	public static final String KEY_TOGGLE =     PREF + "toggle";
+	public static final String KEY_TYPEFACE =   PREF + "typeface";
 
 	public static final int DARK_THEME = android.R.style.Theme_Holo;
 	public static final int LIGHT_THEME = android.R.style.Theme_Holo_Light;
@@ -69,10 +73,39 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 
 		Preference button = (Preference) findPreference(KEY_DELETE);
 		button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
 			@Override
 			public boolean onPreferenceClick(Preference arg0) {
 				SystemInterface.deleteAll(homeActivity);
+				return true;
+			}
+		});
+		
+		Preference testcase_scheduling = (Preference) findPreference(KEY_SCHEDULING);
+		testcase_scheduling.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				TestCases.scheduling();
+				finish();
+				return true;
+			}
+		});
+		
+		Preference testcase_priority = (Preference) findPreference(KEY_PRIORITY);
+		testcase_priority.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				TestCases.priorityScheduling();
+				finish();
+				return true;
+			}
+		});
+		
+		Preference testcase_final = (Preference) findPreference(KEY_FINALTEST);
+		testcase_final.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				TestCases.finalTestCase();
+				finish();
 				return true;
 			}
 		});

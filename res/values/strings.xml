@@ -17,10 +17,14 @@
     <string name="layout_user_setup_yes">Yes, use this name</string>
     <string name="layout_user_setup_no">Don\'t make a name</string>
        
-    <string name="preference_summary_banhammer">tl&#59;dr B&#38;HAMR</string>
+    <string name="preference_summary_banhammer">tl&#59;dr B&#38; HAMR</string>
+    <string name="preference_testcase_finaltestcase">Final test case</string>
+    <string name="preference_testcase_priority">Priority Scheduling</string>
+    <string name="preference_testcase_scheduling">Scheduling</string>
     <string name="preference_title_delete">Delete all messages</string>
     <string name="preference_title_name">Display name</string>
     <string name="preference_title_splash">Splash screen</string>
+    <string name="preference_title_testcases">Test Cases</string>
     <string name="preference_title_toggle">Current message mode</string>
     <string name="preference_title_version">Version</string>
     
