@@ -1,20 +1,21 @@
 package edu.towson.cosc.classmate.scheduler;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 class MultilevelQueue {
 	
 	private int size;
 	private Queue<UserCall> user;
-	private Queue<SendMessage> outgoing;
-	private Queue<ReceiveMessage> incoming;
+	private PriorityQueue<SendMessage> outgoing;
+	private PriorityQueue<ReceiveMessage> incoming;
 	private Queue<SystemCall> FCFS;
 	
 	MultilevelQueue() {
 		this.user = new LinkedList<UserCall>();
-		this.outgoing = new LinkedList<SendMessage>();
-		this.incoming = new LinkedList<ReceiveMessage>();
+		this.outgoing = new PriorityQueue<SendMessage>();
+		this.incoming = new PriorityQueue<ReceiveMessage>();
 		this.FCFS = new LinkedList<SystemCall>();
 	}
 	

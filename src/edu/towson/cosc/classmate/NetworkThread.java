@@ -23,8 +23,6 @@ public class NetworkThread implements Runnable {
 	
 	NetworkThread( HomeActivity home ) {
 		this.home = home;
-		
-		this.clients.add( "10.162.250.157" );
 	}
 	
 	public void run() {
@@ -78,9 +76,8 @@ public class NetworkThread implements Runnable {
 			for( String IP : this.clients ) {
 				socket = new DatagramSocket( this.port + 1, InetAddress.getByName( IP ) );
 				
-				Log.d( "CONNECTION", "SUCCESSFUL: " + InetAddress.getByName( IP ) + ":" + this.port );
 				this.connection.send( outgoing );
-				Log.d( "CONNECTION", "SENT" );
+				
 				this.connection.disconnect();
 				
 			}
