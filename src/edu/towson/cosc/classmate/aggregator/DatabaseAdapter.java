@@ -10,19 +10,15 @@ public class DatabaseAdapter {
 
 	DatabaseAdapter(SQLiteDatabase database) {
 		this.database = database;
-		// TODO - maybe open() statement?
 	}
 
 	public void deleteAllMessages() {
-		// TODO check for empty database.  Call if (isDBEmpty())
 		database.delete(DatabaseConstants.TABLE_DRAFTS, null, null);
-		// db.execSQL("delete from " + TABLE_NAME);
 	}
 
-	// This might not be an int, but whatevs
-	// This method is not tested
 	public void deleteMessageById(long n) {
-		database.rawQuery("DELETE FROM " + DatabaseConstants.TABLE_DRAFTS + " WHERE " + DatabaseConstants.KEY_ROWID + " LIKE " + n, null);
+		int i = Integer.parseInt(Long.toString(n));
+		database.delete(DatabaseConstants.TABLE_DRAFTS, DatabaseConstants.KEY_ROWID + "=" + i, null);
 	}
 
 	// http://stackoverflow.com/a/9076679/1097170

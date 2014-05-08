@@ -120,7 +120,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 
 		// Read values
 		boolean boolean_splash = sp.getBoolean(KEY_SPLASH, true);
-		boolean boolean_typeface = sp.getBoolean(KEY_TYPEFACE, true);
+		boolean boolean_typeface = sp.getBoolean(KEY_TYPEFACE, false);
 		String string_name = sp.getString(KEY_NAME, "Slartibartfast"); // Default if none found
 
 		// Set Summaries
