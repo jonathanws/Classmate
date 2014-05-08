@@ -121,6 +121,7 @@ public class HomeActivity extends ListActivity {
 	private void createDialog(final View v, int flag) {
 		
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setCancelable(true);
 		
 		switch(flag) {
 			case MESSAGE_OPTIONS:
