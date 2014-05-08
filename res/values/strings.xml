@@ -2,13 +2,13 @@
 <resources>
 
     <string name="app_name">River</string>
-    <string name="version">Alpha 0.1</string>
+    <string name="version">Alpha 0.9</string>
     
     <string name="menu_settings">Settings</string>
     
     <string name="layout_homeactivity_write_message">Write message</string>
     
-    <string name="layout_setting_banhammerdropped">B&#38;HAMR DROPPED</string>
+    <string name="layout_setting_banhammerdropped">B&#38; HAMR DROPPED</string>
     
     <string name="layout_user_setup_name">Display name</string>
     <string name="layout_user_setup_details">Your display name will be shown with all of your messages.  Make it whatever you like</string>
