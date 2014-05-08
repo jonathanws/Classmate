@@ -4,8 +4,9 @@
     android:layout_height="wrap_content"
     android:gravity="left"
     android:orientation="vertical"
+    android:paddingBottom="4dp"
     android:paddingRight="60dp"
-    android:paddingTop="8dp" >
+    android:paddingTop="4dp" >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -65,21 +66,21 @@
                     android:textSize="12sp" />
                 
             </LinearLayout>
-            
+
             <TextView
                 android:id="@+id/row_rowid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="@string/app_name" />
-            
+                android:text="@string/app_name"
+                android:visibility="gone" />
+
             <!-- textview added because I can't view.getColor() -->
             <TextView
                 android:id="@+id/row_priorityGONE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="@string/app_name" />
+                android:text="@string/app_name"
+                android:visibility="gone" />
             
         </LinearLayout>
 
@@ -87,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/shadow" />
+        
     </LinearLayout>
 
 </LinearLayout>

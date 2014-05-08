@@ -18,6 +18,8 @@ import android.widget.ListView;
 public class Settings extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	
 	public static final String TAG = "river"; // For Android logs
+	public static final boolean MODE_SEND = true;
+	public static final boolean MODE_RECEIVE = false;
 	public static final String PREF = "preference_";
 
 	public static final String KEY_FIRST_RUN = PREF + "first_run";
@@ -25,6 +27,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	public static final String KEY_NAME =      PREF + "name";
 	public static final String KEY_SPLASH =    PREF + "splash";
 	public static final String KEY_THEME =     PREF + "theme";
+	public static final String KEY_TOGGLE =    PREF + "toggle";
 	public static final String KEY_TYPEFACE =  PREF + "typeface";
 
 	public static final int DARK_THEME = android.R.style.Theme_Holo;
@@ -117,9 +120,11 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		CheckBoxPreference cbp_splash = (CheckBoxPreference) findPreference(KEY_SPLASH);
 		CheckBoxPreference cbp_typeface = (CheckBoxPreference) findPreference(KEY_TYPEFACE);
 		EditTextPreference etp_name = (EditTextPreference) findPreference(KEY_NAME);
+		Preference p_toggle = (Preference) findPreference(KEY_TOGGLE);
 
 		// Read values
 		boolean boolean_splash = sp.getBoolean(KEY_SPLASH, true);
+		boolean boolean_toggle = sp.getBoolean(KEY_TOGGLE, MODE_SEND);
 		boolean boolean_typeface = sp.getBoolean(KEY_TYPEFACE, false);
 		String string_name = sp.getString(KEY_NAME, "Slartibartfast"); // Default if none found
 
@@ -127,6 +132,10 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 		cbp_splash.setChecked(boolean_splash);
 		cbp_typeface.setChecked(boolean_typeface);
 		etp_name.setSummary(capitalizeFirstLetter(string_name));
+		if (boolean_toggle)
+			p_toggle.setSummary("Sending");
+		else
+			p_toggle.setSummary("Receiving");
 	}
 
 	public static void setHomeActivity(HomeActivity home) {

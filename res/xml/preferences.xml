@@ -21,6 +21,10 @@
             android:maxLength="20" />
         
         <Preference
+            android:key="preference_toggle"
+            android:title="@string/preference_title_toggle" />
+        
+        <Preference
             android:key="preference_delete"
             android:title="@string/preference_title_delete"
             android:summary="@string/preference_summary_banhammer" />

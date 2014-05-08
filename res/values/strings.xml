@@ -4,6 +4,7 @@
     <string name="app_name">River</string>
     <string name="version">Alpha 0.9</string>
     
+    <string name="menu_receive">Toggle</string>
     <string name="menu_settings">Settings</string>
     
     <string name="layout_homeactivity_write_message">Write message</string>
@@ -18,8 +19,9 @@
        
     <string name="preference_summary_banhammer">tl&#59;dr B&#38;HAMR</string>
     <string name="preference_title_delete">Delete all messages</string>
-    <string name="preference_title_name">Display Name</string>
+    <string name="preference_title_name">Display name</string>
     <string name="preference_title_splash">Splash screen</string>
+    <string name="preference_title_toggle">Current message mode</string>
     <string name="preference_title_version">Version</string>
     
     <string name="error">error reading database</string>
