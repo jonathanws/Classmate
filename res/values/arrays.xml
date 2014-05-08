@@ -7,4 +7,10 @@
         <item>3: Emergency</item>
     </string-array>
     
+    <string-array name="message_details_array">
+        <item>Copy</item>
+        <item>Delete</item>
+        <item>Message Details</item>
+    </string-array>
+    
 </resources>
