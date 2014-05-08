@@ -3,6 +3,8 @@ package edu.towson.cosc.classmate;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,7 +38,6 @@ public class HomeActivity extends ListActivity {
 	protected ViewFlipper v_flipper;
 	private NetworkThread connection = new NetworkThread(this);
 	private BroadcastReceiver receiver;
-	private Context context;
 	
 	private MyCursorAdapter cursorAdapter;
 
@@ -123,6 +124,8 @@ public class HomeActivity extends ListActivity {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setCancelable(true);
 		
+		final HomeActivity ha = this;
+		
 		switch(flag) {
 			case MESSAGE_OPTIONS:
 				alert.setTitle("Message options");
@@ -130,9 +133,11 @@ public class HomeActivity extends ListActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (which == 0) { // Copy
-							// TODO copy to system keyboard
+							TextView oldMessage = (TextView) v.findViewById(R.id.row_message);
+							copyToClipboard(oldMessage.getText().toString());
 						} else if(which == 1) { // Delete
-							// TODO delete message
+							TextView oldId = (TextView) v.findViewById(R.id.row_rowid);
+							SystemInterface.delete(ha, Long.parseLong(oldId.getText().toString()));
 						} else if(which == 2) { // Message details
 							createDialog(v, MESSAGE_INFO);
 							
@@ -171,13 +176,11 @@ public class HomeActivity extends ListActivity {
 				
 				TextView message = (TextView) view.findViewById(R.id.dialog_message);
 				TextView name = (TextView) view.findViewById(R.id.dialog_name);
-//				TextView priority = (TextView) view.findViewById(R.id.dialog_priority);
 				TextView timestamp = (TextView) view.findViewById(R.id.dialog_timestamp);
 				TextView id = (TextView) view.findViewById(R.id.dialog_id);
 				
 				message.setText(sOldMessage);
 				name.setText("From: " + sOldName);
-//				priority.setText("Priority " + sOldPriority);
 				timestamp.setText(sOldTimestamp);
 				id.setText("Row: " + sOldId);
 				
@@ -186,6 +189,13 @@ public class HomeActivity extends ListActivity {
         
         alert.create();
         alert.show();
+	}
+	
+	private void copyToClipboard(String text) {
+		ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		ClipData clip = ClipData.newPlainText(Settings.TAG, text);
+		clipboard.setPrimaryClip(clip);
+		Toast.makeText(getApplicationContext(), "Copied to clipboard", Toast.LENGTH_LONG).show();
 	}
 
 	protected void setUpTitle() {
@@ -326,7 +336,8 @@ public class HomeActivity extends ListActivity {
 		else
 			return 3;
 	}
-
+	
+	@Deprecated
 	public String getLocalIpAddress() {
 		WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
 		return Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());

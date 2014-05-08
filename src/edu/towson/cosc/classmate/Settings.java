@@ -16,7 +16,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class Settings extends PreferenceActivity implements OnSharedPreferenceChangeListener {
-
+	
+	public static final String TAG = "river"; // For Android logs
 	public static final String PREF = "preference_";
 
 	public static final String KEY_FIRST_RUN = PREF + "first_run";
