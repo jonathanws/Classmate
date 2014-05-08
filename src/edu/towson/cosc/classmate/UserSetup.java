@@ -31,7 +31,7 @@ public class UserSetup extends Activity {
 			mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(mainIntent);
 			finish();
-		} //else
+		}
 	}
 	
 	protected void init() {
