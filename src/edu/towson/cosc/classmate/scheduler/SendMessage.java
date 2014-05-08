@@ -17,9 +17,9 @@ class SendMessage extends NetworkCall {
 		Invoker.addMessage( this.msg );
 		SystemInterface.displayAllMessages( home );
 		
-		if( home.getConnection().send( msg ) ) {
-			home.popToast( "Message Sent" );
-		}
+		// if( home.getConnection().send( msg ) ) {
+		home.popToast( "Message Sent" );
+		// }
 	}
 	
 }
