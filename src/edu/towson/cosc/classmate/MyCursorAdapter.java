@@ -85,6 +85,8 @@ public class MyCursorAdapter extends CursorAdapter {
 		
 		holder.message.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_MESSAGE)));
 		holder.name.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_NAME)));
+		holder.priorityGONE.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_PRIORITY)));
+		holder.rowid.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_ROWID)));
 		holder.timestamp.setText(cursor.getString(cursor.getColumnIndex(DatabaseConstants.KEY_TIMESTAMP)));
 	}
 	
@@ -121,6 +123,8 @@ public class MyCursorAdapter extends CursorAdapter {
 		
 		holder.message = (TextView) v.findViewById(R.id.row_message);
 		holder.name = (TextView) v.findViewById(R.id.row_name);
+		holder.priorityGONE = (TextView) v.findViewById(R.id.row_priorityGONE);
+		holder.rowid = (TextView) v.findViewById(R.id.row_rowid);
 		holder.timestamp = (TextView) v.findViewById(R.id.row_timestamp);
 		
 		v.setTag(holder);
@@ -129,8 +133,10 @@ public class MyCursorAdapter extends CursorAdapter {
 
 	static class ViewHolder {
 		View priority;
+		TextView rowid;
 		TextView message;
 		TextView name;
+		TextView priorityGONE;
 		TextView timestamp;
 	}
 

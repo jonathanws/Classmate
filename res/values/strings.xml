@@ -21,5 +21,7 @@
     <string name="preference_title_name">Display Name</string>
     <string name="preference_title_splash">Splash screen</string>
     <string name="preference_title_version">Version</string>
+    
+    <string name="error">error reading database</string>
 
 </resources>
