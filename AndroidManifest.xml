@@ -46,12 +46,13 @@
             android:name="edu.towson.cosc.classmate.UserSetup"
             android:label="User Setup" />
         
-        <!-- Receive Wi-Fi connection state changes -->
+        <!-- Receive Wi-Fi connection state changes 
         <receiver android:name="edu.towson.cosc.classmate.WiFiReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        -->
         
     </application>
 

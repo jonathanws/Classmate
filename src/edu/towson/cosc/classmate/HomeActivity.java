@@ -1,8 +1,10 @@
 package edu.towson.cosc.classmate;
 
 import android.app.ListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
@@ -33,6 +35,7 @@ public class HomeActivity extends ListActivity {
 	private MyCursorAdapter cursorAdapter;
 
 	private NetworkThread connection = new NetworkThread(this);
+	private BroadcastReceiver receiver;
 
 	@Override
 	protected synchronized void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,12 @@ public class HomeActivity extends ListActivity {
 		SystemInterface.displayAllMessages(this);
 		setUpTitle();
 	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(receiver);
+	}
 
 	protected void setFirstRunToFalse() {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -79,7 +88,21 @@ public class HomeActivity extends ListActivity {
 			image.setBackgroundResource(priorities[i]);
 			v_flipper.addView(image);
 		}
+		
+		// Code for the receiver
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
 
+		receiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				setUpTitle();
+			}
+		};
+		registerReceiver(receiver, filter);
+		
+		// Listener for long clicks
+		
 		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
