@@ -12,14 +12,10 @@ class SendMessage extends NetworkCall {
 		this.msg = msg;
 	}
 	
-	// TODO: Implement
 	public void run() {
 		Invoker.addMessage( this.msg );
 		SystemInterface.displayAllMessages( home );
-		
-		// if( home.getConnection().send( msg ) ) {
 		home.popToast( "Message Sent" );
-		// }
 	}
 	
 }
