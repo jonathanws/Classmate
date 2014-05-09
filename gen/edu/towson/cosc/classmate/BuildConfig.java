@@ -2,5 +2,6 @@
 package edu.towson.cosc.classmate;
 
 public final class BuildConfig {
-    public final static boolean DEBUG = true;
+	
+	public final static boolean DEBUG = true;
 }

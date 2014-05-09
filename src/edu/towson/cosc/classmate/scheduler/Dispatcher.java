@@ -26,11 +26,7 @@ class Dispatcher implements Runnable {
 		this.current = null;
 	}
 	
-	boolean isAlive() {
-		return this.runner.isAlive();
-	}
-	
-	// For "fun" method (can implement if bored)
+	// Preemption Method(s)
 	void preempt( SystemCall task ) {
 		if( this.runner.isAlive() ) {
 			SystemCall waiting = this.current;
@@ -49,6 +45,10 @@ class Dispatcher implements Runnable {
 		}
 		
 		this.current = null;
+	}
+	
+	boolean isAlive() {
+		return this.runner.isAlive();
 	}
 	
 	void join() {

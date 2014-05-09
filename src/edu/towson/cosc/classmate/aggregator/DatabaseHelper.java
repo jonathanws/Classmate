@@ -10,19 +10,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class DatabaseHelper extends SQLiteOpenHelper {
 	
-	public DatabaseHelper(Context ctx) {
-		super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
+	public DatabaseHelper( Context ctx ) {
+		super( ctx, DATABASE_NAME, null, DATABASE_VERSION );
 	}
 	
 	@Override
-	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(TABLE_DRAFTS_CREATE);
+	public void onCreate( SQLiteDatabase db ) {
+		db.execSQL( TABLE_DRAFTS_CREATE );
 	}
 	
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRAFTS);
-		onCreate(db);
+	public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
+		db.execSQL( "DROP TABLE IF EXISTS " + TABLE_DRAFTS );
+		onCreate( db );
 	}
-		
+	
 }
